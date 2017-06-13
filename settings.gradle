@@ -1,2 +1,4 @@
 rootProject.name = 'FreeWorld'
+include 'FreeWorldClient'
+include 'FreeWorldServer'
 
