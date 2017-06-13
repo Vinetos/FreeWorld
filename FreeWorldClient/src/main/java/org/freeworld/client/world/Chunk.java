@@ -1,4 +1,4 @@
-/**
+/*
  * ==============================================================================
  *  _   _               _                       ____   _                    
  * | \ | |  ___  _   _ | |_  _ __  ___   _ __  / ___| | |_  __ _  _ __  ___ 
@@ -44,83 +44,22 @@
  *
  *==============================================================================
  */
-package org.freeworld.client;
+package org.freeworld.client.world;
 
-import org.freeworld.client.maths.Vector4f;
-import org.lwjgl.LWJGLException;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.DisplayMode;
+import org.freeworld.client.block.Block;
+import org.freeworld.client.utils.Location;
 
-import static org.lwjgl.opengl.GL11.*;
+public class Chunk{
 
-import java.io.File;
+    private final Location location;
 
-public final class FreeWorld{
+    private final Block[][][] blocks = new Block[16][255][16];
 
-    private static FreeWorld freeWorld;
-
-    private final String name = "FreeWorld", version = "Alpha 130617", title = String.format("%1$s %2$s", name, version);
-    private boolean running;
-
-    private FreeWorld(){
-
+    public Chunk(Location location){
+        this.location = location;
     }
 
-    public static FreeWorld getFreeWorld(){
-        return freeWorld != null ? freeWorld : new FreeWorld();
-    }
-
-    public static void main(String... args){
-
-        System.setProperty("org.lwjgl.librarypath", new File("native/"+(System.getProperties().getProperty("os.name").split(" ")[0]).toLowerCase()).getAbsolutePath());
-
-        try {
-            Display.setTitle(FreeWorld.getFreeWorld().title);
-            Display.setDisplayMode(new DisplayMode(720, 480));
-            Display.create();
-        }catch (LWJGLException e){
-            e.printStackTrace();
-        }
-
-        //TODO: Provisoire
-        glEnable(GL_DEPTH_TEST);
-        glClearColor(0.2f, 0.7f, 0.7f, 1.0f);
-
-        FreeWorld.getFreeWorld().start();
-    }
-
-    private void start(){
-        if(running) return;
-        running = true;
-        run();
-    }
-
-    public void run(){
-        long lns = System.nanoTime();
-        double ns = 1000000000.0/20.0;
-        long ls = System.currentTimeMillis();
-        int fps = 0, tps = 0;
-
-
-        while (!Display.isCloseRequested() && running) {
-            if(System.nanoTime() - lns > ns){
-                lns+=ns;
-                tps++;
-                //Update
-            }else{
-                fps++;
-                Display.update();
-                //Render
-            }
-
-            if(System.currentTimeMillis() - ls >= 1000){
-                ls = System.currentTimeMillis();
-                Display.setTitle(title+" | FPS : "+fps+" | TPS : "+tps);
-                fps = 0; tps = 0;
-            }
-        }
-
-        Display.destroy();
-        System.exit(0);
+    public Location getLocation() {
+        return location;
     }
 }

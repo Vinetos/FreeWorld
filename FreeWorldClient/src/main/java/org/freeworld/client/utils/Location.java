@@ -1,4 +1,4 @@
-/**
+/*
  * ==============================================================================
  *  _   _               _                       ____   _                    
  * | \ | |  ___  _   _ | |_  _ __  ___   _ __  / ___| | |_  __ _  _ __  ___ 
@@ -44,83 +44,62 @@
  *
  *==============================================================================
  */
-package org.freeworld.client;
+package org.freeworld.client.utils;
 
-import org.freeworld.client.maths.Vector4f;
-import org.lwjgl.LWJGLException;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.DisplayMode;
+import org.freeworld.client.maths.Vector5f;
+import org.freeworld.client.world.World;
 
-import static org.lwjgl.opengl.GL11.*;
+public class Location{
 
-import java.io.File;
+    private World world;
+    private Vector5f vector5f;
 
-public final class FreeWorld{
-
-    private static FreeWorld freeWorld;
-
-    private final String name = "FreeWorld", version = "Alpha 130617", title = String.format("%1$s %2$s", name, version);
-    private boolean running;
-
-    private FreeWorld(){
-
+    public Location(Location location){
+        this(location.world, location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
     }
 
-    public static FreeWorld getFreeWorld(){
-        return freeWorld != null ? freeWorld : new FreeWorld();
+    public Location(World world, float x, float y, float z, float yaw, float pitch){
+        this.world = world;
+        this.vector5f = new Vector5f(x, y, z, yaw, pitch);
     }
 
-    public static void main(String... args){
-
-        System.setProperty("org.lwjgl.librarypath", new File("native/"+(System.getProperties().getProperty("os.name").split(" ")[0]).toLowerCase()).getAbsolutePath());
-
-        try {
-            Display.setTitle(FreeWorld.getFreeWorld().title);
-            Display.setDisplayMode(new DisplayMode(720, 480));
-            Display.create();
-        }catch (LWJGLException e){
-            e.printStackTrace();
-        }
-
-        //TODO: Provisoire
-        glEnable(GL_DEPTH_TEST);
-        glClearColor(0.2f, 0.7f, 0.7f, 1.0f);
-
-        FreeWorld.getFreeWorld().start();
+    public World getWorld() {
+        return world;
     }
 
-    private void start(){
-        if(running) return;
-        running = true;
-        run();
+    public int getBlockX(){
+        return (int) vector5f.getX();
     }
 
-    public void run(){
-        long lns = System.nanoTime();
-        double ns = 1000000000.0/20.0;
-        long ls = System.currentTimeMillis();
-        int fps = 0, tps = 0;
+    public int getBlockY(){
+        return (int) vector5f.getY();
+    }
 
+    public int getBlockZ(){
+        return (int) vector5f.getZ();
+    }
 
-        while (!Display.isCloseRequested() && running) {
-            if(System.nanoTime() - lns > ns){
-                lns+=ns;
-                tps++;
-                //Update
-            }else{
-                fps++;
-                Display.update();
-                //Render
-            }
+    public float getX(){
+        return vector5f.getX();
+    }
 
-            if(System.currentTimeMillis() - ls >= 1000){
-                ls = System.currentTimeMillis();
-                Display.setTitle(title+" | FPS : "+fps+" | TPS : "+tps);
-                fps = 0; tps = 0;
-            }
-        }
+    public float getY(){
+        return vector5f.getY();
+    }
 
-        Display.destroy();
-        System.exit(0);
+    public float getZ(){
+        return vector5f.getZ();
+    }
+
+    public float getYaw(){
+        return vector5f.getYaw();
+    }
+
+    public float getPitch(){
+        return vector5f.getPitch();
+    }
+
+    public Location clone(){
+        return new Location(this);
     }
 }

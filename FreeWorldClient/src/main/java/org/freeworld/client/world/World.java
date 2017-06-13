@@ -1,4 +1,4 @@
-/**
+/*
  * ==============================================================================
  *  _   _               _                       ____   _                    
  * | \ | |  ___  _   _ | |_  _ __  ___   _ __  / ___| | |_  __ _  _ __  ___ 
@@ -44,83 +44,59 @@
  *
  *==============================================================================
  */
-package org.freeworld.client;
+package org.freeworld.client.world;
 
-import org.freeworld.client.maths.Vector4f;
-import org.lwjgl.LWJGLException;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.DisplayMode;
+import org.freeworld.client.block.Block;
+import org.freeworld.client.utils.Location;
 
-import static org.lwjgl.opengl.GL11.*;
+import java.util.LinkedHashMap;
 
-import java.io.File;
+public class World{
 
-public final class FreeWorld{
+    private final String name;
+    private final LinkedHashMap<String, Chunk> chunks = new LinkedHashMap<>();
 
-    private static FreeWorld freeWorld;
+    public World(String name){
+        this.name = name;
+    }
 
-    private final String name = "FreeWorld", version = "Alpha 130617", title = String.format("%1$s %2$s", name, version);
-    private boolean running;
+    public String getName() {
+        return name;
+    }
 
-    private FreeWorld(){
+    /*
+     * Load a chunks with a player location.
+     */
+    public void loadChunk(Location location){
 
     }
 
-    public static FreeWorld getFreeWorld(){
-        return freeWorld != null ? freeWorld : new FreeWorld();
+
+    /*
+     * Get a block with a location.
+     */
+    public Block getBlock(Location location){
+        return null;
     }
 
-    public static void main(String... args){
-
-        System.setProperty("org.lwjgl.librarypath", new File("native/"+(System.getProperties().getProperty("os.name").split(" ")[0]).toLowerCase()).getAbsolutePath());
-
-        try {
-            Display.setTitle(FreeWorld.getFreeWorld().title);
-            Display.setDisplayMode(new DisplayMode(720, 480));
-            Display.create();
-        }catch (LWJGLException e){
-            e.printStackTrace();
-        }
-
-        //TODO: Provisoire
-        glEnable(GL_DEPTH_TEST);
-        glClearColor(0.2f, 0.7f, 0.7f, 1.0f);
-
-        FreeWorld.getFreeWorld().start();
+    /*
+     * Get a block with ints
+     */
+    public Block getBlock(int x, int y, int z){
+        return null;
     }
 
-    private void start(){
-        if(running) return;
-        running = true;
-        run();
+    /*
+     * Set a block width a location
+     */
+    public void setBlock(Location location){
+
     }
 
-    public void run(){
-        long lns = System.nanoTime();
-        double ns = 1000000000.0/20.0;
-        long ls = System.currentTimeMillis();
-        int fps = 0, tps = 0;
+    /*
+     * Set a block with ints
+     */
+    public void setBlock(int x, int y, int z){
 
-
-        while (!Display.isCloseRequested() && running) {
-            if(System.nanoTime() - lns > ns){
-                lns+=ns;
-                tps++;
-                //Update
-            }else{
-                fps++;
-                Display.update();
-                //Render
-            }
-
-            if(System.currentTimeMillis() - ls >= 1000){
-                ls = System.currentTimeMillis();
-                Display.setTitle(title+" | FPS : "+fps+" | TPS : "+tps);
-                fps = 0; tps = 0;
-            }
-        }
-
-        Display.destroy();
-        System.exit(0);
     }
 }
