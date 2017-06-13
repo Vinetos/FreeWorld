@@ -46,9 +46,78 @@
  */
 package org.freeworld.client;
 
-public class FreeWorld {
+import org.lwjgl.LWJGLException;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.DisplayMode;
+
+import java.io.File;
+
+import static org.lwjgl.opengl.GL11.*;
+
+public final class FreeWorld{
+
+    private static FreeWorld freeWorld;
+    private boolean running;
+
+    private FreeWorld(){
+
+    }
+
+    public static FreeWorld getFreeWorld(){
+        return freeWorld != null ? freeWorld : new FreeWorld();
+    }
 
     public static void main(String... args){
 
+        System.setProperty("org.lwjgl.librarypath", new File("native/"+(System.getProperties().getProperty("os.name").split(" ")[0]).toLowerCase()).getAbsolutePath());
+
+        try {
+            Display.setTitle("FreeWorld Alpha 130617");
+            Display.setDisplayMode(new DisplayMode(720, 480));
+            Display.create();
+        }catch (LWJGLException e){
+            e.printStackTrace();
+        }
+
+        //TODO: Provisoire
+        glEnable(GL_DEPTH_TEST);
+        glClearColor(0.2f, 0.7f, 0.7f, 1.0f);
+
+        FreeWorld.getFreeWorld().start();
+    }
+
+    private void start(){
+        if(running) return;
+        running = true;
+        run();
+    }
+
+    public void run(){
+        long lns = System.nanoTime();
+        double ns = 1000000000.0/20.0;
+        long ls = System.currentTimeMillis();
+        int fps = 0, tps = 0;
+
+
+        while (!Display.isCloseRequested() && running) {
+            if(System.nanoTime() - lns > ns){
+                lns+=ns;
+                tps++;
+                //Update
+            }else{
+                fps++;
+                Display.update();
+                //Render
+            }
+
+            if(System.currentTimeMillis() - ls >= 1000){
+                ls = System.currentTimeMillis();
+                Display.setTitle("FreeWorld Alpha 130617 | FPS : "+fps+" | TPS : "+tps);
+                fps = 0; tps = 0;
+            }
+        }
+
+        Display.destroy();
+        System.exit(0);
     }
 }
