@@ -46,7 +46,7 @@
  */
 package org.freeworld.client.maths;
 
-public class Vector3f<T extends Vector3f<T>> extends Vector2f<Vector3f<?>>{
+public class Vector3f extends Vector2f{
 
     protected float z;
 
@@ -55,32 +55,83 @@ public class Vector3f<T extends Vector3f<T>> extends Vector2f<Vector3f<?>>{
         this.z = z;
     }
 
+    @Override
+    public Vector3f setX(float x) {
+        return (Vector3f) super.setX(x);
+    }
+
+    @Override
+    public Vector3f addX(float x) {
+        return (Vector3f) super.addX(x);
+    }
+
+    @Override
+    public Vector3f removeX(float x) {
+        return (Vector3f) super.removeX(x);
+    }
+
+    @Override
+    public Vector3f multiplyX(float x) {
+        return (Vector3f) super.multiplyX(x);
+    }
+
+    @Override
+    public Vector3f divideX(float x) {
+        return (Vector3f) super.divideX(x);
+    }
+
+    @Override
+    public Vector3f setY(float y) {
+        return (Vector3f) super.setY(y);
+    }
+
+    @Override
+    public Vector3f addY(float y) {
+        return (Vector3f) super.addY(y);
+    }
+
+    @Override
+    public Vector3f removeY(float y) {
+        return (Vector3f) super.removeY(y);
+    }
+
+    @Override
+    public Vector3f multiplyY(float y) {
+        return (Vector3f) super.multiplyY(y);
+    }
+
+    @Override
+    public Vector3f divideY(float y) {
+        return (Vector3f) super.divideY(y);
+    }
+
+
     public final float getZ() {
         return z;
     }
 
-    public final T setZ(float z) {
+    public Vector3f setZ(float z) {
         this.z = z;
-        return (T) this;
+        return this;
     }
 
-    public final T addZ(float z){
+    public Vector3f addZ(float z){
         this.z += z;
-        return (T) this;
+        return this;
     }
 
-    public final T removeZ(float z){
+    public Vector3f removeZ(float z){
         this.z -= z;
-        return (T) this;
+        return this;
     }
 
-    public final T multiplyZ(float z){
+    public Vector3f multiplyZ(float z){
         this.z *= z;
-        return (T) this;
+        return this;
     }
 
-    public final T divideZ(float z){
+    public Vector3f divideZ(float z){
         this.z /= z;
-        return (T) this;
+        return this;
     }
 }

@@ -46,7 +46,7 @@
  */
 package org.freeworld.client.maths;
 
-public class Vector5f<T extends Vector5f<T>> extends Vector4f<Vector5f<?>>{
+public class Vector5f extends Vector4f{
 
     protected float pitch;
 
@@ -55,32 +55,132 @@ public class Vector5f<T extends Vector5f<T>> extends Vector4f<Vector5f<?>>{
         this.pitch = pitch;
     }
 
+    @Override
+    public Vector5f setX(float x) {
+        return (Vector5f) super.setX(x);
+    }
+
+    @Override
+    public Vector5f addX(float x) {
+        return (Vector5f) super.addX(x);
+    }
+
+    @Override
+    public Vector5f removeX(float x) {
+        return (Vector5f) super.removeX(x);
+    }
+
+    @Override
+    public Vector5f multiplyX(float x) {
+        return (Vector5f) super.multiplyX(x);
+    }
+
+    @Override
+    public Vector5f divideX(float x) {
+        return (Vector5f) super.divideX(x);
+    }
+
+    @Override
+    public Vector5f setY(float y) {
+        return (Vector5f) super.setY(y);
+    }
+
+    @Override
+    public Vector5f addY(float y) {
+        return (Vector5f) super.addY(y);
+    }
+
+    @Override
+    public Vector5f removeY(float y) {
+        return (Vector5f) super.removeY(y);
+    }
+
+    @Override
+    public Vector5f multiplyY(float y) {
+        return (Vector5f) super.multiplyY(y);
+    }
+
+    @Override
+    public Vector5f divideY(float y) {
+        return (Vector5f) super.divideY(y);
+    }
+
+    @Override
+    public Vector5f setZ(float z) {
+        return (Vector5f) super.setZ(z);
+    }
+
+    @Override
+    public Vector5f addZ(float z) {
+        return (Vector5f) super.addZ(z);
+    }
+
+    @Override
+    public Vector5f removeZ(float z) {
+        return (Vector5f) super.removeZ(z);
+    }
+
+    @Override
+    public Vector5f multiplyZ(float z) {
+        return (Vector5f) super.multiplyZ(z);
+    }
+
+    @Override
+    public Vector5f divideZ(float z) {
+        return (Vector5f) super.divideZ(z);
+    }
+
+    @Override
+    public Vector5f setYaw(float yaw) {
+        return (Vector5f) super.setYaw(yaw);
+    }
+
+    @Override
+    public Vector5f addYaw(float yaw) {
+        return (Vector5f) super.addYaw(yaw);
+    }
+
+    @Override
+    public Vector5f removeYaw(float yaw) {
+        return (Vector5f) super.removeYaw(yaw);
+    }
+
+    @Override
+    public Vector5f multiplyYaw(float yaw) {
+        return (Vector5f) super.multiplyYaw(yaw);
+    }
+
+    @Override
+    public Vector5f divideYaw(float yaw) {
+        return (Vector5f) super.divideYaw(yaw);
+    }
+
     public float getPitch() {
         return pitch;
     }
 
-    public final T setPitch(float pitch) {
+    public final Vector5f setPitch(float pitch) {
         this.pitch = pitch;
-        return (T) this;
+        return this;
     }
 
-    public final T addPitch(float pitch){
+    public final Vector5f addPitch(float pitch){
         this.pitch += pitch;
-        return (T) this;
+        return this;
     }
 
-    public final T removePitch(float pitch){
+    public final Vector5f removePitch(float pitch){
         this.pitch -= pitch;
-        return (T) this;
+        return this;
     }
 
-    public final T multiplyPitch(float pitch){
+    public final Vector5f multiplyPitch(float pitch){
         this.pitch *= pitch;
-        return (T) this;
+        return this;
     }
 
-    public final T dividePitch(float pitch){
+    public final Vector5f dividePitch(float pitch){
         this.pitch /= pitch;
-        return (T) this;
+        return this;
     }
 }

@@ -46,7 +46,7 @@
  */
 package org.freeworld.client.maths;
 
-public class Vector4f<T extends Vector4f<T>> extends Vector3f<Vector4f<?>>{
+public class Vector4f extends Vector3f{
 
     protected float yaw;
 
@@ -55,32 +55,107 @@ public class Vector4f<T extends Vector4f<T>> extends Vector3f<Vector4f<?>>{
         this.yaw = yaw;
     }
 
+    @Override
+    public Vector4f setX(float x) {
+        return (Vector4f) super.setX(x);
+    }
+
+    @Override
+    public Vector4f addX(float x) {
+        return (Vector4f) super.addX(x);
+    }
+
+    @Override
+    public Vector4f removeX(float x) {
+        return (Vector4f) super.removeX(x);
+    }
+
+    @Override
+    public Vector4f multiplyX(float x) {
+        return (Vector4f) super.multiplyX(x);
+    }
+
+    @Override
+    public Vector3f divideX(float x) {
+        return (Vector3f) super.divideX(x);
+    }
+
+    @Override
+    public Vector4f setY(float y) {
+        return (Vector4f) super.setY(y);
+    }
+
+    @Override
+    public Vector4f addY(float y) {
+        return (Vector4f) super.addY(y);
+    }
+
+    @Override
+    public Vector3f removeY(float y) {
+        return (Vector3f) super.removeY(y);
+    }
+
+    @Override
+    public Vector3f multiplyY(float y) {
+        return (Vector3f) super.multiplyY(y);
+    }
+
+    @Override
+    public Vector4f divideY(float y) {
+        return (Vector4f) super.divideY(y);
+    }
+
+    @Override
+    public Vector4f setZ(float z) {
+        return (Vector4f) super.setZ(z);
+    }
+
+    @Override
+    public Vector4f addZ(float z) {
+        return (Vector4f) super.addZ(z);
+    }
+
+    @Override
+    public Vector4f removeZ(float z) {
+        return (Vector4f) super.removeZ(z);
+    }
+
+    @Override
+    public Vector4f multiplyZ(float z) {
+        return (Vector4f) super.multiplyZ(z);
+    }
+
+    @Override
+    public Vector4f divideZ(float z) {
+        return (Vector4f) super.divideZ(z);
+    }
+
     public float getYaw() {
         return yaw;
     }
 
-    public final T setYaw(float yaw) {
+    public Vector4f setYaw(float yaw) {
         this.yaw = yaw;
-        return (T) this;
+        return this;
     }
 
-    public final T addYaw(float yaw){
+    public Vector4f addYaw(float yaw){
         this.yaw += yaw;
-        return (T) this;
+        return this;
     }
 
-    public final T removeYaw(float yaw){
+    public Vector4f removeYaw(float yaw){
         this.yaw -= yaw;
-        return (T) this;
+        return this;
     }
 
-    public final T multiplyYaw(float yaw){
+    public Vector4f multiplyYaw(float yaw){
         this.yaw *= yaw;
-        return (T) this;
+        return this;
     }
 
-    public final T divideYaw(float yaw){
+    public Vector4f divideYaw(float yaw){
         this.yaw /= yaw;
-        return (T) this;
+        return this;
     }
 }

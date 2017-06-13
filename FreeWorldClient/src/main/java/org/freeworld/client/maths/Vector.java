@@ -46,7 +46,7 @@
  */
 package org.freeworld.client.maths;
 
-abstract class Vector<T extends Vector<T>>{
+abstract class Vector{
 
     protected float x;
 
@@ -58,28 +58,28 @@ abstract class Vector<T extends Vector<T>>{
         return x;
     }
 
-    public final T setX(float x) {
+    public Vector setX(float x) {
         this.x = x;
-        return (T) this;
+        return this;
     }
 
-    public final T addX(float x){
+    public Vector addX(float x){
         this.x += x;
-        return (T) this;
+        return this;
     }
 
-    public final T removeX(float x){
+    public Vector removeX(float x){
         this.x -= x;
-        return (T) this;
+        return this;
     }
 
-    public final T multiplyX(float x){
+    public Vector multiplyX(float x){
         this.x *= x;
-        return (T) this;
+        return this;
     }
 
-    public final T divideX(float x){
+    public Vector divideX(float x){
         this.x /= x;
-        return (T) this;
+        return this;
     }
 }

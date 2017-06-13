@@ -46,7 +46,7 @@
  */
 package org.freeworld.client.maths;
 
-public class Vector2f<T extends Vector2f<T>> extends Vector<Vector2f<?>>{
+public class Vector2f extends Vector{
 
     protected float y;
 
@@ -54,32 +54,57 @@ public class Vector2f<T extends Vector2f<T>> extends Vector<Vector2f<?>>{
         super(x);
     }
 
+    @Override
+    public Vector2f setX(float x) {
+        return (Vector2f) super.setX(x);
+    }
+
+    @Override
+    public Vector2f addX(float x) {
+        return (Vector2f) super.addX(x);
+    }
+
+    @Override
+    public Vector2f removeX(float x) {
+        return (Vector2f) super.removeX(x);
+    }
+
+    @Override
+    public Vector2f multiplyX(float x) {
+        return (Vector2f) super.multiplyX(x);
+    }
+
+    @Override
+    public Vector2f divideX(float x) {
+        return (Vector2f) super.divideX(x);
+    }
+
     public final float getY(){
        return y;
     }
 
-    public final T setY(float y) {
+    public Vector2f setY(float y) {
         this.y = y;
-        return (T) this;
+        return this;
     }
 
-    public final T addY(float y){
+    public Vector2f addY(float y){
         this.y += y;
-        return (T) this;
+        return this;
     }
 
-    public final T removeY(float y){
+    public Vector2f removeY(float y){
         this.y -= y;
-        return (T) this;
+        return this;
     }
 
-    public final T multiplyY(float y){
+    public Vector2f multiplyY(float y){
         this.y *= y;
-        return (T) this;
+        return this;
     }
 
-    public final T divideY(float y){
+    public Vector2f divideY(float y){
         this.y /= y;
-        return (T) this;
+        return this;
     }
 }
