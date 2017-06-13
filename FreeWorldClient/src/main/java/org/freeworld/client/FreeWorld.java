@@ -50,13 +50,15 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
-import java.io.File;
-
 import static org.lwjgl.opengl.GL11.*;
+
+import java.io.File;
 
 public final class FreeWorld{
 
     private static FreeWorld freeWorld;
+
+    private final String name = "FreeWorld", version = "Alpha 130617", title = String.format("%1$s %2$s", name, version);
     private boolean running;
 
     private FreeWorld(){
@@ -72,7 +74,7 @@ public final class FreeWorld{
         System.setProperty("org.lwjgl.librarypath", new File("native/"+(System.getProperties().getProperty("os.name").split(" ")[0]).toLowerCase()).getAbsolutePath());
 
         try {
-            Display.setTitle("FreeWorld Alpha 130617");
+            Display.setTitle(FreeWorld.getFreeWorld().title);
             Display.setDisplayMode(new DisplayMode(720, 480));
             Display.create();
         }catch (LWJGLException e){
@@ -112,7 +114,7 @@ public final class FreeWorld{
 
             if(System.currentTimeMillis() - ls >= 1000){
                 ls = System.currentTimeMillis();
-                Display.setTitle("FreeWorld Alpha 130617 | FPS : "+fps+" | TPS : "+tps);
+                Display.setTitle(title+" | FPS : "+fps+" | TPS : "+tps);
                 fps = 0; tps = 0;
             }
         }
