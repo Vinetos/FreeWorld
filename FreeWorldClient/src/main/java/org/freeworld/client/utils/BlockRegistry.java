@@ -51,24 +51,24 @@ import org.freeworld.client.block.Material;
 
 import java.util.EnumMap;
 
-public class BlockRegistry{
+public class BlockRegistry {
 
     private static final EnumMap<Material, Block> blocks = new EnumMap<>(Material.class);
 
-    public static void registerBlock(Material material, Block block){
+    public static void registerBlock(Material material, Block block) {
         blocks.put(material, block);
     }
 
-    public static Block getBlock(Material material){
+    public static Block getBlock(Material material) {
         return blocks.get(material);
     }
 
-    public static Block getBlockById(int id){
+    public static Block getBlockById(int id) {
         Material material = Material.getBlockById(id);
         return material != null ? getBlock(material) : null;
     }
 
-    public static Block getBlockByName(String name){
+    public static Block getBlockByName(String name) {
         Material material = Material.getBlockByName(name);
         return material != null ? getBlock(material) : null;
     }

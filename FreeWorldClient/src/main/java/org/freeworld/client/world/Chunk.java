@@ -51,7 +51,7 @@ import org.freeworld.client.block.Material;
 import org.freeworld.client.utils.BlockRegistry;
 import org.freeworld.client.utils.Location;
 
-public class Chunk{
+public class Chunk {
 
     private final Block[][][] blocks = new Block[16][32][16];
     private final Location location;
@@ -59,13 +59,13 @@ public class Chunk{
 
     private boolean update;
 
-    public Chunk(String id, Location location){
+    public Chunk(String id, Location location) {
         this.location = location;
         this.id = id;
     }
 
-    public void populate(){
-        for(int x = 0; x < 16; x++) {
+    public void populate() {
+        for (int x = 0; x < 16; x++) {
             for (int y = 0; y < 32; y++) {
                 for (int z = 0; z < 16; z++) {
                     if (y < 3) blocks[x][y][z] = BlockRegistry.getBlock(Material.STONE);
@@ -83,7 +83,7 @@ public class Chunk{
         return location;
     }
 
-    public World getWorld(){
+    public World getWorld() {
         return location.getWorld();
     }
 
@@ -95,7 +95,7 @@ public class Chunk{
         this.update = update;
     }
 
-    public Block getBlock(int x, int y, int z){
+    public Block getBlock(int x, int y, int z) {
         return (x < 0 || x > 15 || y < 0 || y > 31 || z < 0 || z > 15) ? null : blocks[x][y][z];
     }
 

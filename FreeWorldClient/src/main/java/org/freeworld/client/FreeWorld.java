@@ -47,11 +47,9 @@
 package org.freeworld.client;
 
 import org.freeworld.client.block.Block;
-import org.freeworld.client.maths.Vector4f;
 import org.freeworld.client.maths.Vector5f;
 import org.freeworld.client.render.Renderer;
 import org.freeworld.client.world.World;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -59,9 +57,9 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.util.glu.GLU;
 
-import static org.lwjgl.opengl.GL11.*;
-
 import java.io.File;
+
+import static org.lwjgl.opengl.GL11.*;
 
 public final class FreeWorld{
 
@@ -85,7 +83,6 @@ public final class FreeWorld{
     }
 
     public static void main(String... args){
-
         System.setProperty("org.lwjgl.librarypath", new File("native/"+(System.getProperties().getProperty("os.name").split(" ")[0]).toLowerCase()).getAbsolutePath());
 
         try {

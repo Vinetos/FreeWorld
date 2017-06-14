@@ -1,28 +1,28 @@
 /**
  * ==============================================================================
- *  _   _               _                       ____   _
+ * _   _               _                       ____   _
  * | \ | |  ___  _   _ | |_  _ __  ___   _ __  / ___| | |_  __ _  _ __  ___
  * |  \| | / _ \| | | || __|| '__|/ _ \ | '_ \ \___ \ | __|/ _` || '__|/ __|
  * | |\  ||  __/| |_| || |_ | |  | (_) || | | | ___) || |_| (_| || |   \__ \
  * |_| \_| \___| \__,_| \__||_|   \___/ |_| |_||____/  \__|\__,_||_|   |___/
- *
+ * <p>
  * ==============================================================================
- *            _    _______   __________________  _____
- *            | |  / /  _/ | / / ____/_  __/ __ \/ ___/
- *            | | / // //  |/ / __/   / / / / / /\__ \
- *            | |/ // // /|  / /___  / / / /_/ /___/ /
- *            |___/___/_/ |_/_____/ /_/  \____//____/
- *
+ * _    _______   __________________  _____
+ * | |  / /  _/ | / / ____/_  __/ __ \/ ___/
+ * | | / // //  |/ / __/   / / / / / /\__ \
+ * | |/ // // /|  / /___  / / / /_/ /___/ /
+ * |___/___/_/ |_/_____/ /_/  \____//____/
+ * <p>
  * ==============================================================================
- *
+ * <p>
  * FreeWorld game
  * Copyright (c) NeutronStars & Vinetos Software 2017,
  * By NeutronStars, juin 2017
- *
+ * <p>
  * ==============================================================================
- *
+ * <p>
  * This file is part of FreeWorld game.
- *
+ * <p>
  * FreeWorld is free software: you can redistribute it and/or modify
  * it under the terms of the MIT License.
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -31,18 +31,18 @@
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
  * of the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
  * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- *==============================================================================
+ * <p>
+ * ==============================================================================
  */
 package org.freeworld.client.render;
 
@@ -61,7 +61,7 @@ public class BlockRenderer {
      */
     private final Vector4f color;
 
-    public BlockRenderer(Vector4f color){
+    public BlockRenderer(Vector4f color) {
         this.color = color;
     }
 
@@ -95,43 +95,43 @@ public class BlockRenderer {
         GL11.glColor4f(color.getX() * 0.8f, color.getY() * 0.8f, color.getZ() * 0.8f, color.getYaw());
         Block side_1 = location.add(0, 0, -1).getBlock();
         if (side_1 == null || side_1.isTransparent()) {
-            System.out.println("X1 = "+location.getBlock().getType()+" | "+location.add(-1, 0, 0).getBlock());
-            setSideData(location.getBlockX()+1.0f, location.getBlockY(), location.getBlockZ(), location.getBlockX(), location.getBlockY()+1.0f, location.getBlockZ());
+            System.out.println("X1 = " + location.getBlock().getType() + " | " + location.add(-1, 0, 0).getBlock());
+            setSideData(location.getBlockX() + 1.0f, location.getBlockY(), location.getBlockZ(), location.getBlockX(), location.getBlockY() + 1.0f, location.getBlockZ());
         }
 
         Block side_2 = location.add(0, 0, 1).getBlock();
         if (side_2 == null || side_2.isTransparent()) {
-            setSideData(location.getBlockX(), location.getBlockY(), location.getBlockZ()+1.0f, location.getBlockX()+1.0f, location.getBlockY()+1.0f, location.getBlockZ()+1.0f);
+            setSideData(location.getBlockX(), location.getBlockY(), location.getBlockZ() + 1.0f, location.getBlockX() + 1.0f, location.getBlockY() + 1.0f, location.getBlockZ() + 1.0f);
         }
 
         GL11.glColor4f(color.getX() * 0.7f, color.getY() * 0.7f, color.getZ() * 0.7f, color.getYaw());
 
         Block side_3 = location.add(1, 0, 0).getBlock();
         if (side_3 == null || side_3.isTransparent()) {
-            setSideData(location.getBlockX()+1.0f, location.getBlockY(), location.getBlockZ()+1.0f, location.getBlockX()+1.0f, location.getBlockY()+1.0f, location.getBlockZ());
+            setSideData(location.getBlockX() + 1.0f, location.getBlockY(), location.getBlockZ() + 1.0f, location.getBlockX() + 1.0f, location.getBlockY() + 1.0f, location.getBlockZ());
         }
 
         Block side_4 = location.add(-1, 0, 0).getBlock();
         if (side_4 == null || side_4.isTransparent()) {
-            setSideData(location.getBlockX(), location.getBlockY(), location.getBlockZ(), location.getBlockX(), location.getBlockY()+1.0f, location.getBlockZ()+1.0f);
+            setSideData(location.getBlockX(), location.getBlockY(), location.getBlockZ(), location.getBlockX(), location.getBlockY() + 1.0f, location.getBlockZ() + 1.0f);
         }
     }
 
-    public void setTopData(float x, float y, float z, float lx, float ly, float lz){
-        GL11.glVertex3f(x+lx, y+ly, z);
-        GL11.glVertex3f(x, y+ly, z);
-        GL11.glVertex3f(x, y+ly, z+lz);
-        GL11.glVertex3f(x+lx, y+ly, z+lz);
+    public void setTopData(float x, float y, float z, float lx, float ly, float lz) {
+        GL11.glVertex3f(x + lx, y + ly, z);
+        GL11.glVertex3f(x, y + ly, z);
+        GL11.glVertex3f(x, y + ly, z + lz);
+        GL11.glVertex3f(x + lx, y + ly, z + lz);
     }
 
-    public void setBottomData(float x, float y, float z, float lx, float ly, float lz){
+    public void setBottomData(float x, float y, float z, float lx, float ly, float lz) {
         GL11.glVertex3f(x, y, z);
-        GL11.glVertex3f(x+lx, y, z);
-        GL11.glVertex3f(x+lx, y, z+lz);
-        GL11.glVertex3f(x, y, z+lz);
+        GL11.glVertex3f(x + lx, y, z);
+        GL11.glVertex3f(x + lx, y, z + lz);
+        GL11.glVertex3f(x, y, z + lz);
     }
 
-    public void setSideData(float x0, float y0, float z0, float x1, float y1, float z1){
+    public void setSideData(float x0, float y0, float z0, float x1, float y1, float z1) {
         GL11.glVertex3f(x0, y0, z0);
         GL11.glVertex3f(x1, y0, z1);
         GL11.glVertex3f(x1, y1, z1);

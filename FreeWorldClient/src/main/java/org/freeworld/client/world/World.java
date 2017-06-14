@@ -52,12 +52,12 @@ import org.freeworld.client.utils.Location;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 
-public class World{
+public class World {
 
     private final String name;
     private final LinkedHashMap<String, Chunk> chunks = new LinkedHashMap<>();
 
-    public World(String name){
+    public World(String name) {
         this.name = name;
 
         /*
@@ -73,14 +73,14 @@ public class World{
     /*
      * Get chunks loaded.
      */
-    public Collection<Chunk> getChunks(){
+    public Collection<Chunk> getChunks() {
         return chunks.values();
     }
 
     /*
      * Load a chunk with a player location.
      */
-    public void loadChunk(Location location){
+    public void loadChunk(Location location) {
         Chunk chunk = new Chunk("id chunk", location);
         chunk.populate();
         chunks.put(chunk.getId(), chunk);
@@ -89,14 +89,14 @@ public class World{
     /*
      * Get a block with a location.
      */
-    public Block getBlock(Location location){
+    public Block getBlock(Location location) {
         return null;
     }
 
     /*
      * Get a block with ints
      */
-    public Block getBlock(int x, int y, int z){
+    public Block getBlock(int x, int y, int z) {
 
         return chunks.get("id chunk").getBlock(x, y, z);
     }
@@ -104,7 +104,7 @@ public class World{
     /*
      * Set a block width a location
      */
-    public void setBlock(Location location){
+    public void setBlock(Location location) {
 
     }
 
@@ -118,7 +118,7 @@ public class World{
     /*
      * Save World.
      */
-    public void save(){
+    public void save() {
 
     }
 }
