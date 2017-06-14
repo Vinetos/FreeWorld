@@ -7,13 +7,11 @@ sourceCompatibility = 1.5
 
 repositories {
     jcenter()
-    maven {
-        url 'http://wytrem.github.io/maven/'
-    }
+    mavenLocal()
+    mavenCentral()
 }
 
 dependencies {
     compile 'org.jetbrains:annotations:15.0'
     compile 'com.google.code.gson:gson:2.8.0'
-    compile 'org.lwjgl.lwjgl:lwjgl:2.9.3'
 }
