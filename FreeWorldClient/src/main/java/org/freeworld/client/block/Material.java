@@ -46,7 +46,7 @@
  */
 package org.freeworld.client.block;
 
-public enum Material{
+public enum Material {
 
     AIR("air", 0),
     STONE("stone", 1);
@@ -54,20 +54,20 @@ public enum Material{
     private final String name;
     private final int id;
 
-    private Material(String name, int id){
+    private Material(String name, int id) {
         this.name = name;
         this.id = id;
     }
 
-    public static Material getBlockById(int id){
-        for(Material material : Material.values())
-            if(material.id == id) return material;
+    public static Material getBlockById(int id) {
+        for (Material material : Material.values())
+            if (material.id == id) return material;
         return null;
     }
 
-    public static Material getBlockByName(String name){
-        for(Material material : Material.values())
-            if(material.name.equalsIgnoreCase(name)) return material;
+    public static Material getBlockByName(String name) {
+        for (Material material : Material.values())
+            if (material.name.equalsIgnoreCase(name)) return material;
         return null;
     }
 

@@ -66,30 +66,30 @@ public class Renderer {
 
     private static final LinkedHashMap<String, Integer> chunks = new LinkedHashMap<>();
 
-    public static void registerRenderBlocks(){
+    public static void registerRenderBlocks() {
         rendererBlocks.put(Material.AIR, new BlockRenderer(null));
         rendererBlocks.put(Material.STONE, new BlockRenderer(new Vector4f(0.5f, 0.5f, 0.5f, 1.0f)));
 
         System.out.println("register render complited.");
     }
 
-    public static void renderWorld(World world){
-        if(world == null) return;
+    public static void renderWorld(World world) {
+        if (world == null) return;
         world.getChunks().forEach(Renderer::renderChunk);
     }
 
-    private static void renderChunk(Chunk chunk){
-        if(!chunk.isUpdate()){
-            if(chunks.containsKey(chunk.getId())) GL11.glDeleteLists(chunks.get(chunk.getId()), 1);
+    private static void renderChunk(Chunk chunk) {
+        if (!chunk.isUpdate()) {
+            if (chunks.containsKey(chunk.getId())) GL11.glDeleteLists(chunks.get(chunk.getId()), 1);
             else chunks.put(chunk.getId(), GL11.glGenLists(1));
 
             GL11.glNewList(chunks.get(chunk.getId()), GL11.GL_COMPILE);
             GL11.glBegin(GL11.GL_QUADS);
-                Block[][][] blocks = chunk.getBlocks();
-                for(int x = 0; x < 16; x++)
-                    for(int y = 0; y < 32; y++)
-                        for (int z = 0; z < 16; z++)
-                            renderBlock(blocks[x][y][z], chunk.getLocation().clone().add(x, y, z));
+            Block[][][] blocks = chunk.getBlocks();
+            for (int x = 0; x < 16; x++)
+                for (int y = 0; y < 32; y++)
+                    for (int z = 0; z < 16; z++)
+                        renderBlock(blocks[x][y][z], chunk.getLocation().clone().add(x, y, z));
             GL11.glEnd();
             GL11.glEndList();
 
@@ -98,8 +98,8 @@ public class Renderer {
 
         // Draw the chunk.
         GL11.glEnable(GL11.GL_CULL_FACE);
-            GL11.glCullFace(GL11.GL_BACK);
-                GL11.glCallList(chunks.get(chunk.getId()));
+        GL11.glCullFace(GL11.GL_BACK);
+        GL11.glCallList(chunks.get(chunk.getId()));
         GL11.glDisable(GL11.GL_CULL_FACE);
     }
 
@@ -107,7 +107,7 @@ public class Renderer {
     /*
      * Render Blocks.
      */
-    public static void renderBlock(Block block, Location location){
+    public static void renderBlock(Block block, Location location) {
         rendererBlocks.get(block.getType()).drawQuads(location);
     }
 }
