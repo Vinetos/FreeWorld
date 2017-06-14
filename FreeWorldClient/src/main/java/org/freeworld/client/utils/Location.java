@@ -50,16 +50,16 @@ import org.freeworld.client.block.Block;
 import org.freeworld.client.maths.Vector5f;
 import org.freeworld.client.world.World;
 
-public class Location{
+public class Location {
 
     private World world;
     private Vector5f vector5f;
 
-    public Location(Location location){
+    public Location(Location location) {
         this(location.world, location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
     }
 
-    public Location(World world, float x, float y, float z, float yaw, float pitch){
+    public Location(World world, float x, float y, float z, float yaw, float pitch) {
         this.world = world;
         this.vector5f = new Vector5f(x, y, z, yaw, pitch);
     }
@@ -68,52 +68,52 @@ public class Location{
         return world;
     }
 
-    public Block getBlock(){
+    public Block getBlock() {
         return world.getBlock(getBlockX(), getBlockY(), getBlockZ());
     }
 
-    public int getBlockX(){
+    public int getBlockX() {
         return (int) vector5f.getX();
     }
 
-    public int getBlockY(){
+    public int getBlockY() {
         return (int) vector5f.getY();
     }
 
-    public int getBlockZ(){
+    public int getBlockZ() {
         return (int) vector5f.getZ();
     }
 
-    public float getX(){
+    public float getX() {
         return vector5f.getX();
     }
 
-    public float getY(){
+    public float getY() {
         return vector5f.getY();
     }
 
-    public float getZ(){
+    public float getZ() {
         return vector5f.getZ();
     }
 
-    public float getYaw(){
+    public float getYaw() {
         return vector5f.getYaw();
     }
 
-    public float getPitch(){
+    public float getPitch() {
         return vector5f.getPitch();
     }
 
-    public Location set(int x, int y, int z){
+    public Location set(int x, int y, int z) {
         vector5f.setX(x).setY(y).setZ(z);
         return this;
     }
 
-    public Location add(int x, int y, int z){
-        return new Location(world, vector5f.getX()+x, vector5f.getY()+y, vector5f.getZ()+z,vector5f.getYaw(), vector5f.getPitch());
+    public Location add(int x, int y, int z) {
+        return new Location(world, vector5f.getX() + x, vector5f.getY() + y, vector5f.getZ() + z, vector5f.getYaw(), vector5f.getPitch());
     }
 
-    public Location clone(){
+    public Location clone() {
         return new Location(this);
     }
 }
