@@ -47,19 +47,59 @@
 package org.freeworld.client.world;
 
 import org.freeworld.client.block.Block;
+import org.freeworld.client.block.Material;
+import org.freeworld.client.utils.BlockRegistry;
 import org.freeworld.client.utils.Location;
 
 public class Chunk{
 
+    private final Block[][][] blocks = new Block[16][32][16];
     private final Location location;
+    private final String id;
 
-    private final Block[][][] blocks = new Block[16][255][16];
+    private boolean update;
 
-    public Chunk(Location location){
+    public Chunk(String id, Location location){
         this.location = location;
+        this.id = id;
+    }
+
+    public void populate(){
+        for(int x = 0; x < 16; x++) {
+            for (int y = 0; y < 32; y++) {
+                for (int z = 0; z < 16; z++) {
+                    if (y == 0) blocks[x][y][z] = BlockRegistry.getBlock(Material.STONE);
+                    else blocks[x][y][z] = BlockRegistry.getBlock(Material.AIR);
+                }
+            }
+        }
+    }
+
+    public String getId() {
+        return id;
     }
 
     public Location getLocation() {
         return location;
+    }
+
+    public World getWorld(){
+        return location.getWorld();
+    }
+
+    public boolean isUpdate() {
+        return update;
+    }
+
+    public void setUpdate(boolean update) {
+        this.update = update;
+    }
+
+    public Block getBlock(int x, int y, int z){
+        return (x < 0 || x > 15 || y < 0 || y > 31 || z < 0 || z > 15) ? null : blocks[x][y][z];
+    }
+
+    public Block[][][] getBlocks() {
+        return blocks;
     }
 }

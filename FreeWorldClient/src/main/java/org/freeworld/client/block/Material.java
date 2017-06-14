@@ -44,70 +44,34 @@
  *
  *==============================================================================
  */
-package org.freeworld.client.render;
+package org.freeworld.client.block;
 
-import org.freeworld.client.block.Block;
-import org.freeworld.client.block.Material;
-import org.freeworld.client.maths.Vector4f;
-import org.freeworld.client.utils.Location;
-import org.freeworld.client.world.Chunk;
-import org.freeworld.client.world.World;
-import org.lwjgl.opengl.GL11;
+public enum Material{
 
-import java.util.EnumMap;
-import java.util.LinkedHashMap;
+    AIR("air", 0),
+    STONE("stone", 1);
 
-/*
- * Graphic Render.
- */
-public class Renderer {
+    private final String name;
+    private final int id;
 
-    private static final EnumMap<Material, BlockRenderer> rendererBlocks = new EnumMap<>(Material.class);
-
-    private static final LinkedHashMap<String, Integer> chunks = new LinkedHashMap<>();
-
-    public static void registerRenderBlocks(){
-        rendererBlocks.put(Material.AIR, new BlockRenderer(null));
-        rendererBlocks.put(Material.STONE, new BlockRenderer(new Vector4f(0.5f, 0.5f, 0.5f, 1.0f)));
-
-        System.out.println("register render complited.");
+    private Material(String name, int id){
+        this.name = name;
+        this.id = id;
     }
 
-    public static void renderWorld(World world){
-        if(world == null) return;
-        world.getChunks().forEach(Renderer::renderChunk);
+    public static Material getBlockById(int id){
+        for(Material material : Material.values())
+            if(material.id == id) return material;
+        return null;
     }
 
-    private static void renderChunk(Chunk chunk){
-        if(!chunk.isUpdate()){
-            if(chunks.containsKey(chunk.getId())) GL11.glDeleteLists(chunks.get(chunk.getId()), 1);
-            else chunks.put(chunk.getId(), GL11.glGenLists(1));
-
-            GL11.glNewList(chunks.get(chunk.getId()), 1);
-            GL11.glBegin(GL11.GL_QUADS);
-                Block[][][] blocks = chunk.getBlocks();
-                for(int x = 0; x < 16; x++)
-                    for(int y = 0; y < 32; y++)
-                        for (int z = 0; z < 16; z++)
-                            renderBlock(blocks[x][y][z], chunk.getLocation().clone().add(x, y, z));
-            GL11.glEnd();
-            GL11.glEndList();
-
-            chunk.setUpdate(true);
-        }
-
-        // Draw the chunk.
-        GL11.glEnable(GL11.GL_CULL_FACE);
-            GL11.glCullFace(GL11.GL_BACK);
-                GL11.glCallList(chunks.get(chunk.getId()));
-        GL11.glDisable(GL11.GL_CULL_FACE);
+    public static Material getBlockByName(String name){
+        for(Material material : Material.values())
+            if(material.name.equalsIgnoreCase(name)) return material;
+        return null;
     }
 
-
-    /*
-     * Render Blocks.
-     */
-    public static void renderBlock(Block block, Location location){
-        rendererBlocks.get(block.getType()).drawQuads(location);
+    public int getId() {
+        return id;
     }
 }

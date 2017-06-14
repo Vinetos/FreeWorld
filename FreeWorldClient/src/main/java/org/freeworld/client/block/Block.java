@@ -46,5 +46,28 @@
  */
 package org.freeworld.client.block;
 
+import org.freeworld.client.utils.BlockRegistry;
+
 public abstract class Block {
+
+    private final Material material;
+    private final boolean transparent;
+
+    protected Block(Material material, boolean transparent){
+        this.material = material;
+        this.transparent = transparent;
+    }
+
+    public static void registerBlocks(){
+        BlockRegistry.registerBlock(Material.AIR, new Block(Material.AIR, true) {});
+        BlockRegistry.registerBlock(Material.STONE, new Block(Material.STONE, false) {});
+    }
+
+    public final Material getType(){
+        return material;
+    }
+
+    public final boolean isTransparent(){
+        return transparent;
+    }
 }

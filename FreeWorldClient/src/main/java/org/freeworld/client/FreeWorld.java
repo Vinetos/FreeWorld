@@ -46,10 +46,18 @@
  */
 package org.freeworld.client;
 
+import org.freeworld.client.block.Block;
 import org.freeworld.client.maths.Vector4f;
+import org.freeworld.client.maths.Vector5f;
+import org.freeworld.client.render.Renderer;
+import org.freeworld.client.world.World;
+
 import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.util.glu.GLU;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -59,15 +67,21 @@ public final class FreeWorld{
 
     private static FreeWorld freeWorld;
 
-    private final String name = "FreeWorld", version = "Alpha 130617", title = String.format("%1$s %2$s", name, version);
+    private final String name = "FreeWorld", version = "Alpha 140617", title = String.format("%1$s %2$s", name, version);
+
+    private final World world;
+    private final Vector5f cam = new Vector5f(0.0f, 10.0f, 0.0f, 0.0f, 0.0f);
     private boolean running;
 
     private FreeWorld(){
+        Block.registerBlocks();
+        Renderer.registerRenderBlocks();
 
+        this.world = new World("world");
     }
 
     public static FreeWorld getFreeWorld(){
-        return freeWorld != null ? freeWorld : new FreeWorld();
+        return freeWorld != null ? freeWorld : ((freeWorld) = new FreeWorld());
     }
 
     public static void main(String... args){
@@ -106,9 +120,10 @@ public final class FreeWorld{
             if(System.nanoTime() - lns > ns){
                 lns+=ns;
                 tps++;
-                //Update
+                update();
             }else{
                 fps++;
+                render();
                 Display.update();
                 //Render
             }
@@ -122,5 +137,44 @@ public final class FreeWorld{
 
         Display.destroy();
         System.exit(0);
+    }
+
+    private void update(){
+        if(Mouse.isButtonDown(0) && !Mouse.isGrabbed()) Mouse.setGrabbed(true);
+        if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) && Mouse.isGrabbed()) Mouse.setGrabbed(false);
+        if(!Mouse.isGrabbed()) return;
+
+        cam.removeYaw(Mouse.getDY()* 0.05F);
+        cam.addPitch(Mouse.getDX()* 0.05F);
+        if(cam.getYaw() < -90.0f) cam.setYaw(-90.0f);
+        if(cam.getYaw() > 90.0f) cam.setYaw(90.0f);
+
+        System.out.println("X = "+cam.getX()+" | Y = "+cam.getY()+" | Z = "+cam.getZ()+" | Yaw = "+cam.getYaw()+" | Pitch = "+cam.getPitch());
+    }
+
+    private void render(){
+        if(Display.wasResized()) glViewport(0, 0, Display.getWidth(), Display.getHeight());
+
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+        glLoadIdentity();
+        glMatrixMode(GL_MODELVIEW);
+
+        glLoadIdentity();
+        glMatrixMode(GL_PROJECTION);
+
+        GLU.gluPerspective(70.0f, (float) Display.getWidth() / (float) Display.getHeight(), 0.01f, 250.0f);
+
+
+        glPopMatrix();
+            glPushAttrib(GL_TRANSFORM_BIT);
+
+                glRotatef(cam.getYaw(), 1, 0, 0);
+                glRotatef(cam.getPitch(), 0, 1, 0);
+                glTranslatef(-cam.getX(), -cam.getY(), -cam.getZ());
+
+                Renderer.renderWorld(world);
+            glPopAttrib();
+        glPopMatrix();
     }
 }

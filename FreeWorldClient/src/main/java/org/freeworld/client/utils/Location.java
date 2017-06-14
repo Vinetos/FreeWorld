@@ -46,6 +46,7 @@
  */
 package org.freeworld.client.utils;
 
+import org.freeworld.client.block.Block;
 import org.freeworld.client.maths.Vector5f;
 import org.freeworld.client.world.World;
 
@@ -65,6 +66,10 @@ public class Location{
 
     public World getWorld() {
         return world;
+    }
+
+    public Block getBlock(){
+        return world.getBlock(getBlockX(), getBlockY(), getBlockZ());
     }
 
     public int getBlockX(){
@@ -97,6 +102,15 @@ public class Location{
 
     public float getPitch(){
         return vector5f.getPitch();
+    }
+
+    public Location set(int x, int y, int z){
+        vector5f.setX(x).setY(y).setZ(z);
+        return this;
+    }
+
+    public Location add(int x, int y, int z){
+        return clone().set(x, y, z);
     }
 
     public Location clone(){
