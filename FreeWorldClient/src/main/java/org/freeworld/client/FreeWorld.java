@@ -143,18 +143,18 @@ public final class FreeWorld{
         if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) && Mouse.isGrabbed()) Mouse.setGrabbed(false);
         if(!Mouse.isGrabbed()) return;
 
-        cam.removeYaw(Mouse.getDY()* 0.05F);
-        cam.addPitch(Mouse.getDX()* 0.05F);
+        cam.removeYaw(Mouse.getDY()* 0.1F);
+        cam.addPitch(Mouse.getDX()* 0.1F);
         if(cam.getYaw() < -90.0f) cam.setYaw(-90.0f);
         if(cam.getYaw() > 90.0f) cam.setYaw(90.0f);
 
-        if(Keyboard.isKeyDown(Keyboard.KEY_UP)) cam.addX(0.05f);
-        if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)) cam.addX(-0.05f);
-        if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) cam.addZ(0.05f);
-        if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) cam.addZ(-0.05f);
+        if(Keyboard.isKeyDown(Keyboard.KEY_UP)) cam.addX(0.5f);
+        if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)) cam.addX(-0.5f);
+        if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) cam.addZ(0.5f);
+        if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) cam.addZ(-0.5f);
 
-        if(Keyboard.isKeyDown(Keyboard.KEY_SPACE)) cam.addY(0.05f);
-        if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) cam.addY(-0.05f);
+        if(Keyboard.isKeyDown(Keyboard.KEY_SPACE)) cam.addY(0.5f);
+        if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) cam.addY(-0.5f);
 
 
         //System.out.println("X = "+cam.getX()+" | Y = "+cam.getY()+" | Z = "+cam.getZ()+" | Yaw = "+cam.getYaw()+" | Pitch = "+(cam.getPitch()%360));

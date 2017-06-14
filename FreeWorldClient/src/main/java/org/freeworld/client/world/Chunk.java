@@ -68,7 +68,7 @@ public class Chunk{
         for(int x = 0; x < 16; x++) {
             for (int y = 0; y < 32; y++) {
                 for (int z = 0; z < 16; z++) {
-                    if (y == 0) blocks[x][y][z] = BlockRegistry.getBlock(Material.STONE);
+                    if (y < 3) blocks[x][y][z] = BlockRegistry.getBlock(Material.STONE);
                     else blocks[x][y][z] = BlockRegistry.getBlock(Material.AIR);
                 }
             }

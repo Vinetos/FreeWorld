@@ -110,7 +110,7 @@ public class Location{
     }
 
     public Location add(int x, int y, int z){
-        return clone().set(x, y, z);
+        return new Location(world, vector5f.getX()+x, vector5f.getY()+y, vector5f.getZ()+z,vector5f.getYaw(), vector5f.getPitch());
     }
 
     public Location clone(){
