@@ -91,6 +91,7 @@ public final class FreeWorld{
         try {
             Display.setTitle(FreeWorld.getFreeWorld().title);
             Display.setDisplayMode(new DisplayMode(720, 480));
+            Display.setResizable(true);
             Display.create();
         }catch (LWJGLException e){
             e.printStackTrace();
