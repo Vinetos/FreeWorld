@@ -47,8 +47,10 @@
 package org.freeworld.client;
 
 import org.freeworld.client.block.Block;
+import org.freeworld.client.entity.PlayerEntity;
 import org.freeworld.client.maths.Vector5f;
 import org.freeworld.client.render.Renderer;
+import org.freeworld.client.utils.Location;
 import org.freeworld.client.world.World;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
@@ -68,7 +70,7 @@ public final class FreeWorld{
     private final String name = "FreeWorld", version = "Alpha 140617", title = String.format("%1$s %2$s", name, version);
 
     private final World world;
-    private final Vector5f cam = new Vector5f(0.0f, 5.0f, 0.0f, 0.0f, 0.0f);
+    private final PlayerEntity player;
     private boolean running;
 
     private FreeWorld(){
@@ -76,6 +78,7 @@ public final class FreeWorld{
         Renderer.registerRenderBlocks();
 
         this.world = new World("world");
+        player = new PlayerEntity("player", new Location(world, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f));
     }
 
     public static FreeWorld getFreeWorld(){
@@ -106,7 +109,7 @@ public final class FreeWorld{
         run();
     }
 
-    public void run(){
+    private void run(){
         long lns = System.nanoTime();
         double ns = 1000000000.0/20.0;
         long ls = System.currentTimeMillis();
@@ -141,20 +144,7 @@ public final class FreeWorld{
         if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) && Mouse.isGrabbed()) Mouse.setGrabbed(false);
         if(!Mouse.isGrabbed()) return;
 
-        cam.removeYaw(Mouse.getDY()* 0.1F);
-        cam.addPitch(Mouse.getDX()* 0.1F);
-        if(cam.getYaw() < -90.0f) cam.setYaw(-90.0f);
-        if(cam.getYaw() > 90.0f) cam.setYaw(90.0f);
-
-        if(Keyboard.isKeyDown(Keyboard.KEY_UP)) cam.addX(0.5f);
-        if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)) cam.addX(-0.5f);
-        if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) cam.addZ(0.5f);
-        if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) cam.addZ(-0.5f);
-
-        if(Keyboard.isKeyDown(Keyboard.KEY_SPACE)) cam.addY(0.5f);
-        if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) cam.addY(-0.5f);
-
-
+        player.update();
         //System.out.println("X = "+cam.getX()+" | Y = "+cam.getY()+" | Z = "+cam.getZ()+" | Yaw = "+cam.getYaw()+" | Pitch = "+(cam.getPitch()%360));
     }
 
@@ -175,9 +165,9 @@ public final class FreeWorld{
         glPopMatrix();
             glPushAttrib(GL_TRANSFORM_BIT);
 
-                glRotatef(cam.getYaw(), 1, 0, 0);
-                glRotatef(cam.getPitch(), 0, 1, 0);
-                glTranslatef(-cam.getX(), -cam.getY(), -cam.getZ());
+                glRotatef(player.getLocation().getYaw(), 1, 0, 0);
+                glRotatef(player.getLocation().getPitch(), 0, 1, 0);
+                glTranslatef(-player.getLocation().getX(), -player.getLocation().getY(), -player.getLocation().getZ());
 
                 Renderer.renderWorld(world);
             glPopAttrib();

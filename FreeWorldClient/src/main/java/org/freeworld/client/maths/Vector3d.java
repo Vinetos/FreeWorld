@@ -46,95 +46,104 @@
  */
 package org.freeworld.client.maths;
 
-public class Vector3f extends Vector2f {
+public class Vector3d{
 
-    protected float z;
+    protected double x, y, z;
 
-    public Vector3f(){
-        this(0.0f, 0.0f, 0.0f);
+    public Vector3d(){
+        this(0.0, 0.0, 0.0);
     }
 
-    public Vector3f(float x, float y, float z) {
-        super(x, y);
+    public Vector3d(double x, double y, double z) {
+        this.x = x;
+        this.y = y;
         this.z = z;
     }
 
-    @Override
-    public Vector3f setX(float x) {
-        return (Vector3f) super.setX(x);
+    public double getX() {
+        return x;
     }
 
-    @Override
-    public Vector3f addX(float x) {
-        return (Vector3f) super.addX(x);
+    public Vector3d setX(double x) {
+        this.x = x;
+        return this;
     }
 
-    @Override
-    public Vector3f removeX(float x) {
-        return (Vector3f) super.removeX(x);
+    public Vector3d addX(double x) {
+        this.x += x;
+        return this;
     }
 
-    @Override
-    public Vector3f multiplyX(float x) {
-        return (Vector3f) super.multiplyX(x);
+    public Vector3d removeX(double x) {
+        this.x -= x;
+        return this;
     }
 
-    @Override
-    public Vector3f divideX(float x) {
-        return (Vector3f) super.divideX(x);
+    public Vector3d multiplyX(double x) {
+        this.x *= x;
+        return this;
     }
 
-    @Override
-    public Vector3f setY(float y) {
-        return (Vector3f) super.setY(y);
+    public Vector3d divideX(double x) {
+        this.x /= x;
+        return this;
     }
 
-    @Override
-    public Vector3f addY(float y) {
-        return (Vector3f) super.addY(y);
+    public double getY() {
+        return y;
     }
 
-    @Override
-    public Vector3f removeY(float y) {
-        return (Vector3f) super.removeY(y);
+    public Vector3d setY(double y) {
+        this.y = y;
+        return this;
     }
 
-    @Override
-    public Vector3f multiplyY(float y) {
-        return (Vector3f) super.multiplyY(y);
+    public Vector3d addY(double y) {
+        this.y += y;
+        return this;
     }
 
-    @Override
-    public Vector3f divideY(float y) {
-        return (Vector3f) super.divideY(y);
+    public Vector3d removeY(double y) {
+        this.y -= y;
+        return this;
+    }
+
+    public Vector3d multiplyY(double y) {
+        this.y *= y;
+        return this;
+    }
+
+    public Vector3d divideY(double y) {
+        this.y /= y;
+        return this;
     }
 
 
-    public final float getZ() {
+    public final double getZ() {
         return z;
     }
 
-    public Vector3f setZ(float z) {
+    public Vector3d setZ(double z) {
         this.z = z;
         return this;
     }
 
-    public Vector3f addZ(float z) {
+    public Vector3d addZ(double z) {
         this.z += z;
         return this;
     }
 
-    public Vector3f removeZ(float z) {
+    public Vector3d removeZ(double z) {
         this.z -= z;
         return this;
     }
 
-    public Vector3f multiplyZ(float z) {
+    public Vector3d multiplyZ(double z) {
         this.z *= z;
         return this;
     }
 
-    public Vector3f divideZ(float z) {
+    public Vector3d divideZ(double z) {
         this.z /= z;
         return this;
     }
