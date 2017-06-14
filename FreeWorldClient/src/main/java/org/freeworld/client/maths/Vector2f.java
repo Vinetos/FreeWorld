@@ -52,6 +52,7 @@ public class Vector2f extends Vector{
 
     public Vector2f(float x, float y){
         super(x);
+        this.y = y;
     }
 
     @Override

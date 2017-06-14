@@ -71,12 +71,13 @@ public class BlockRenderer {
      */
     public void drawQuads(Location location) {
         if (color == null) return;
+
+        GL11.glColor4f(color.getX() * 0.9f, color.getY() * 0.9f, color.getZ() * 0.9f, color.getYaw());
         /*
          * Block Top
          */
         Block top = location.add(0, 1, 0).getBlock();
         if (top == null || top.isTransparent()) {
-            GL11.glColor4f(color.getX() * 0.9f, color.getY() * 0.9f, color.getZ() * 0.9f, color.getYaw());
             this.setTopData(location.getBlockX(), location.getBlockY(), location.getBlockZ(), 1.0f, 1.0f, 1.0f);
         }
 
@@ -85,35 +86,33 @@ public class BlockRenderer {
          */
         Block bottom = location.add(0, -1, 0).getBlock();
         if (bottom == null || bottom.isTransparent()) {
-            GL11.glColor4f(color.getX() * 0.9f, color.getY() * 0.9f, color.getZ() * 0.9f, color.getYaw());
             this.setBottomData(location.getBlockX(), location.getBlockY(), location.getBlockZ(), 1.0f, 1.0f, 1.0f);
         }
 
         /*
          * Block Side
          */
+        GL11.glColor4f(color.getX() * 0.8f, color.getY() * 0.8f, color.getZ() * 0.8f, color.getYaw());
         Block side_1 = location.add(-1, 0, 0).getBlock();
         if (side_1 == null || side_1.isTransparent()) {
-            GL11.glColor4f(color.getX() * 0.8f, color.getY() * 0.8f, color.getZ() * 0.8f, color.getYaw());
-            this.setSideData(location.getBlockX(), location.getBlockY(), location.getBlockZ(), location.getBlockX(), location.getBlockY() + 1.0f, location.getBlockZ() + 1.0f);
+            setSideData(location.getBlockX()+1.0f, location.getBlockY(), location.getBlockZ(), location.getBlockX(), location.getBlockY()+1.0f, location.getBlockZ());
         }
 
         Block side_2 = location.add(0, 0, -1).getBlock();
         if (side_2 == null || side_2.isTransparent()) {
-            GL11.glColor4f(color.getX() * 0.7f, color.getY() * 0.7f, color.getZ() * 0.7f, color.getYaw());
-            this.setSideData(location.getBlockX() + 1.0f, location.getBlockY(), location.getBlockZ(), location.getBlockX(), location.getBlockY() + 1.0f, location.getBlockZ());
+            setSideData(location.getBlockX(), location.getBlockY(), location.getBlockZ()+1.0f, location.getBlockX()+1.0f, location.getBlockY()+1.0f, location.getBlockZ()+1.0f);
         }
+
+        GL11.glColor4f(color.getX() * 0.7f, color.getY() * 0.7f, color.getZ() * 0.7f, color.getYaw());
 
         Block side_3 = location.add(1, 0, 0).getBlock();
         if (side_3 == null || side_3.isTransparent()) {
-            GL11.glColor4f(color.getX() * 0.8f, color.getY() * 0.8f, color.getZ() * 0.8f, color.getYaw());
-            this.setSideData(location.getBlockX() + 1.0f, location.getBlockY(), location.getBlockZ() + 1.0f, location.getBlockX() + 1.0f, location.getBlockY() + 1.0f, location.getBlockZ());
+            setSideData(location.getBlockX()+1.0f, location.getBlockY(), location.getBlockZ()+1.0f, location.getBlockX()+1.0f, location.getBlockY()+1.0f, location.getBlockZ());
         }
 
         Block side_4 = location.add(0, 0, 1).getBlock();
         if (side_4 == null || side_4.isTransparent()) {
-            GL11.glColor4f(color.getX() * 0.7f, color.getY() * 0.7f, color.getZ() * 0.7f, color.getYaw());
-            this.setSideData(location.getBlockX(), location.getBlockY(), location.getBlockZ() + 1.0f, location.getBlockX() + 1.0f, location.getBlockY() + 1.0f, location.getBlockZ() + 1.0f);
+            setSideData(location.getBlockX(), location.getBlockY(), location.getBlockZ(), location.getBlockX(), location.getBlockY()+1.0f, location.getBlockZ()+1.0f);
         }
     }
 
@@ -137,5 +136,4 @@ public class BlockRenderer {
         GL11.glVertex3f(x1, y1, z1);
         GL11.glVertex3f(x0, y1, z0);
     }
-
 }

@@ -83,7 +83,7 @@ public class Renderer {
             if(chunks.containsKey(chunk.getId())) GL11.glDeleteLists(chunks.get(chunk.getId()), 1);
             else chunks.put(chunk.getId(), GL11.glGenLists(1));
 
-            GL11.glNewList(chunks.get(chunk.getId()), 1);
+            GL11.glNewList(chunks.get(chunk.getId()), GL11.GL_COMPILE);
             GL11.glBegin(GL11.GL_QUADS);
                 Block[][][] blocks = chunk.getBlocks();
                 for(int x = 0; x < 16; x++)

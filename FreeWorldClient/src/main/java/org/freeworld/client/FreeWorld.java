@@ -70,7 +70,7 @@ public final class FreeWorld{
     private final String name = "FreeWorld", version = "Alpha 140617", title = String.format("%1$s %2$s", name, version);
 
     private final World world;
-    private final Vector5f cam = new Vector5f(0.0f, 10.0f, 0.0f, 0.0f, 0.0f);
+    private final Vector5f cam = new Vector5f(0.0f, 5.0f, 0.0f, 0.0f, 0.0f);
     private boolean running;
 
     private FreeWorld(){
@@ -97,7 +97,6 @@ public final class FreeWorld{
         }
 
         //TODO: Provisoire
-        glEnable(GL_DEPTH_TEST);
         glClearColor(0.2f, 0.7f, 0.7f, 1.0f);
 
         FreeWorld.getFreeWorld().start();
@@ -149,7 +148,16 @@ public final class FreeWorld{
         if(cam.getYaw() < -90.0f) cam.setYaw(-90.0f);
         if(cam.getYaw() > 90.0f) cam.setYaw(90.0f);
 
-        System.out.println("X = "+cam.getX()+" | Y = "+cam.getY()+" | Z = "+cam.getZ()+" | Yaw = "+cam.getYaw()+" | Pitch = "+cam.getPitch());
+        if(Keyboard.isKeyDown(Keyboard.KEY_UP)) cam.addX(0.05f);
+        if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)) cam.addX(-0.05f);
+        if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) cam.addZ(0.05f);
+        if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) cam.addZ(-0.05f);
+
+        if(Keyboard.isKeyDown(Keyboard.KEY_SPACE)) cam.addY(0.05f);
+        if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) cam.addY(-0.05f);
+
+
+        //System.out.println("X = "+cam.getX()+" | Y = "+cam.getY()+" | Z = "+cam.getZ()+" | Yaw = "+cam.getYaw()+" | Pitch = "+(cam.getPitch()%360));
     }
 
     private void render(){
@@ -165,7 +173,7 @@ public final class FreeWorld{
 
         GLU.gluPerspective(70.0f, (float) Display.getWidth() / (float) Display.getHeight(), 0.01f, 250.0f);
 
-
+        glEnable(GL_DEPTH_TEST);
         glPopMatrix();
             glPushAttrib(GL_TRANSFORM_BIT);
 
@@ -176,5 +184,6 @@ public final class FreeWorld{
                 Renderer.renderWorld(world);
             glPopAttrib();
         glPopMatrix();
+        glDisable(GL_DEPTH_TEST);
     }
 }
