@@ -95,7 +95,6 @@ public class BlockRenderer {
         GL11.glColor4f(color.getX() * 0.8f, color.getY() * 0.8f, color.getZ() * 0.8f, color.getYaw());
         Block side_1 = location.add(0, 0, -1).getBlock();
         if (side_1 == null || side_1.isTransparent()) {
-            System.out.println("X1 = " + location.getBlock().getType() + " | " + location.add(-1, 0, 0).getBlock());
             setSideData(location.getBlockX() + 1.0f, location.getBlockY(), location.getBlockZ(), location.getBlockX(), location.getBlockY() + 1.0f, location.getBlockZ());
         }
 

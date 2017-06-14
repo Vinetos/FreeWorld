@@ -49,7 +49,8 @@ package org.freeworld.client.block;
 public enum Material {
 
     AIR("air", 0),
-    STONE("stone", 1);
+    STONE("stone", 1),
+    GRASS("grass", 2);
 
     private final String name;
     private final int id;

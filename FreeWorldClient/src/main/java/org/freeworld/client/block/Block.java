@@ -59,10 +59,9 @@ public abstract class Block {
     }
 
     public static void registerBlocks() {
-        BlockRegistry.registerBlock(Material.AIR, new Block(Material.AIR, true) {
-        });
-        BlockRegistry.registerBlock(Material.STONE, new Block(Material.STONE, false) {
-        });
+        BlockRegistry.registerBlock(Material.AIR, new Block(Material.AIR, true) {});
+        BlockRegistry.registerBlock(Material.STONE, new Block(Material.STONE, false) {});
+        BlockRegistry.registerBlock(Material.GRASS, new Block(Material.GRASS, false) {});
     }
 
     public final Material getType() {

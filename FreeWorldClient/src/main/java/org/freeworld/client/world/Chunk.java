@@ -51,6 +51,8 @@ import org.freeworld.client.block.Material;
 import org.freeworld.client.utils.BlockRegistry;
 import org.freeworld.client.utils.Location;
 
+import java.util.Random;
+
 public class Chunk {
 
     private final Block[][][] blocks = new Block[16][32][16];
@@ -65,11 +67,14 @@ public class Chunk {
     }
 
     public void populate() {
+        final Random random = new Random();
         for (int x = 0; x < 16; x++) {
             for (int y = 0; y < 32; y++) {
                 for (int z = 0; z < 16; z++) {
-                    if (y < 3) blocks[x][y][z] = BlockRegistry.getBlock(Material.STONE);
-                    else blocks[x][y][z] = BlockRegistry.getBlock(Material.AIR);
+                    if (y < 3){
+                        if(random.nextInt(2) == 0) blocks[x][y][z] = BlockRegistry.getBlock(Material.STONE);
+                        else blocks[x][y][z] = BlockRegistry.getBlock(Material.GRASS);
+                    }else blocks[x][y][z] = BlockRegistry.getBlock(Material.AIR);
                 }
             }
         }

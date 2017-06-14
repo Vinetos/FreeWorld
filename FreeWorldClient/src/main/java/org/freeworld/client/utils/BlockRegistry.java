@@ -57,6 +57,7 @@ public class BlockRegistry {
 
     public static void registerBlock(Material material, Block block) {
         blocks.put(material, block);
+        System.out.println("Block register : "+material.toString());
     }
 
     public static Block getBlock(Material material) {

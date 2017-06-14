@@ -69,8 +69,8 @@ public class Renderer {
     public static void registerRenderBlocks() {
         rendererBlocks.put(Material.AIR, new BlockRenderer(null));
         rendererBlocks.put(Material.STONE, new BlockRenderer(new Vector4f(0.5f, 0.5f, 0.5f, 1.0f)));
-
-        System.out.println("register render complited.");
+        rendererBlocks.put(Material.GRASS, new BlockRenderer(new Vector4f(0.0f, 0.5f, 0.0f, 1.0f)));
+        System.out.println("register render completed.");
     }
 
     public static void renderWorld(World world) {
