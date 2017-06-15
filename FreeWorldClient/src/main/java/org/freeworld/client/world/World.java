@@ -46,11 +46,9 @@
  */
 package org.freeworld.client.world;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 import org.freeworld.client.block.Block;
 import org.freeworld.client.block.Material;
 import org.freeworld.client.utils.Location;
-import org.lwjgl.Sys;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
