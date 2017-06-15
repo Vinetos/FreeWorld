@@ -102,7 +102,7 @@ public class PlayerEntity extends Entity {
         Vector3f direction = location.getDirection();
 
         for(int i = 0; i < 8 * 10; i++){
-            Vector3f dir = new Vector3f(direction).multiply(i/10);
+            Vector3f dir = new Vector3f(direction).multiply(i/10.0f);
             int x = (int)(location.getBlockX()+dir.getX()),
                 y = (int)(location.getBlockY()+dir.getY()),
                 z = (int)(location.getBlockZ()+dir.getZ());
