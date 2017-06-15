@@ -49,17 +49,20 @@ package org.freeworld.client.entity;
 import org.freeworld.client.maths.Vector3d;
 import org.freeworld.client.maths.Vector3f;
 import org.freeworld.client.utils.Location;
+import org.freeworld.client.world.Chunk;
 
 public abstract class Entity{
 
     protected Location location;
     protected Vector3d velocity = new Vector3d();
-    protected float speed = 0.05f;
+    protected float speed = 0.5f;
+    private Location lastLocation;
     private String name;
 
     protected Entity(String name, Location location){
         this.name = name;
         this.location = location;
+        this.lastLocation = location;
     }
 
     public String getName() {
@@ -70,7 +73,22 @@ public abstract class Entity{
         return location;
     }
 
-    public void update(){
-
+    public void setLocation(Location location){
+        this.location = location;
     }
+
+    public final void update(){
+
+        move();
+
+        Chunk last = lastLocation.getChunk(), now = location.getChunk();
+        if(now == null && last != null) location = lastLocation.clone();
+        else {
+            lastLocation = location.clone();
+            if(last != null && !last.equals(now)) last.removeEntity(this);
+            if(now != null && !now.equals(last)) now.addEntity(this);
+        }
+    }
+
+    protected void move(){}
 }

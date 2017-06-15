@@ -48,12 +48,18 @@ package org.freeworld.client.world;
 
 import org.freeworld.client.block.Block;
 import org.freeworld.client.block.Material;
+import org.freeworld.client.entity.Entity;
 import org.freeworld.client.utils.BlockRegistry;
 import org.freeworld.client.utils.Location;
 
-import java.util.Random;
+import java.util.*;
 
 public class Chunk {
+
+    private final List<Entity> entities = new ArrayList<>();
+
+    private final List<Entity> entitiesAddedQueue = new ArrayList<>();
+    private final List<Entity> entitiesRemoveQueue = new ArrayList<>();
 
     private final Block[][][] blocks = new Block[16][32][16];
     private final int positionX, positionZ;
@@ -115,5 +121,47 @@ public class Chunk {
     public void setBlock(Material material, int x, int y, int z) {
         blocks[x][y][z] = BlockRegistry.getBlock(material);
         update = false;
+    }
+
+    public Collection<Entity> getEntities(){
+        return Collections.unmodifiableCollection(entities);
+    }
+
+    public void addEntity(Entity entity){
+        if(!entities.contains(entity)) entitiesAddedQueue.add(entity);
+    }
+
+    public void removeEntity(Entity entity){
+        entitiesRemoveQueue.add(entity);
+    }
+
+    protected void updateEntityQueue(){
+        entities.addAll(entitiesAddedQueue);
+        entities.removeAll(entitiesRemoveQueue);
+        entitiesAddedQueue.clear();
+        entitiesRemoveQueue.clear();
+    }
+
+    protected <T extends Entity> T spawnEntity(Class<T> clazz, Location location){
+        T entity = null;
+        try {
+            entity = clazz.getConstructor(Location.class).newInstance(location);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        addEntity(entity);
+        return entity;
+    }
+
+    protected <T extends Entity> T spawnEntity(Class<T> clazz, Location location, boolean up){
+        if(up){
+            for(int y = 31; y > -1; y--){
+                if(!getBlock(location.getBlockX(), y, location.getBlockZ()).isTransparent()){
+                    location.setY(y+3);
+                    break;
+                }
+            }
+        }
+        return  spawnEntity(clazz, location);
     }
 }

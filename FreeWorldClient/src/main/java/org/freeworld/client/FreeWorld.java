@@ -78,7 +78,7 @@ public final class FreeWorld{
         Renderer.registerRenderBlocks();
 
         this.world = new World("world");
-        player = new PlayerEntity("player", new Location(world, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f));
+        player = world.spawnEntity(PlayerEntity.class, new Location(world, -0.0f, 0.0f, 0.0f, 0.0f, 0.0f), true);
     }
 
     public static FreeWorld getFreeWorld(){
@@ -147,7 +147,6 @@ public final class FreeWorld{
                 fps++;
                 render();
                 Display.update();
-                //Render
             }
 
             if(System.currentTimeMillis() - ls >= 1000){
@@ -166,7 +165,7 @@ public final class FreeWorld{
         if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) && Mouse.isGrabbed()) Mouse.setGrabbed(false);
         if(!Mouse.isGrabbed()) return;
 
-        player.update();
+        world.updateWorld();
         //System.out.println("X = "+player.getLocation().getX()+" | Y = "+player.getLocation().getY()+" | Z = "+player.getLocation().getZ()+" | Yaw = "+player.getLocation().getYaw()+" | Pitch = "+(player.getLocation().getPitch()%360));
     }
 

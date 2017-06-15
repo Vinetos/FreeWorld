@@ -53,16 +53,12 @@ import org.lwjgl.input.Mouse;
 
 public class PlayerEntity extends Entity {
 
-    public PlayerEntity(String name, Location location){
-        super(name, location);
+    public PlayerEntity(Location location){
+        super("player", location);
     }
 
     @Override
-    public void update() {
-        move();
-    }
-
-    private void move(){
+    protected void move(){
         location.removeYaw(Mouse.getDY()* 0.05F);
         location.addPitch(Mouse.getDX()* 0.05F);
 

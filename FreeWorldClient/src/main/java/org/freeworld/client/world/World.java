@@ -48,6 +48,7 @@ package org.freeworld.client.world;
 
 import org.freeworld.client.block.Block;
 import org.freeworld.client.block.Material;
+import org.freeworld.client.entity.Entity;
 import org.freeworld.client.utils.Location;
 
 import java.util.Collection;
@@ -103,7 +104,7 @@ public class World {
      * Get a block with ints
      */
     public Block getBlock(int x, int y, int z) {
-        Chunk chunk = chunks.get(((Math.abs(x) >> 4) - (x < 0 ? 1 : 0)) + "_" + ((Math.abs(z) >> 4) - (z < 0 ? 1 : 0)));
+        Chunk chunk = getChunk(x, z);
         return chunk != null ? chunk.getBlock((x >= 0) ? Math.abs(x % 16) : 15 - Math.abs(x % 16), y, z >= 0 ? Math.abs(z % 16) : 15 - Math.abs(z % 16)) : null;
     }
 
@@ -118,8 +119,30 @@ public class World {
      * Set a block with ints
      */
     public void setBlock(Material material, int x, int y, int z) {
-        Chunk chunk = chunks.get((x >> 4) + "_" + (z >> 4));
+        Chunk chunk = getChunk(x, z);
         if (chunk != null) chunk.setBlock(material, Math.abs(x % 16), y, Math.abs(z % 16));
+    }
+
+    public Chunk getChunk(Location location){
+        return getChunk(location.getBlockX(), location.getBlockZ());
+    }
+
+    public Chunk getChunk(int x, int z){
+        return chunks.get((x >> 4) + "_" + (z >> 4));
+    }
+
+    public <T extends Entity> T spawnEntity(Class<T> clazz, Location location){
+        return spawnEntity(clazz, location, false);
+    }
+
+    public <T extends Entity> T spawnEntity(Class<T> clazz, Location location, boolean up){
+        Chunk chunk = getChunk(location);
+        return chunk != null ? chunk.spawnEntity(clazz, location, up) : null;
+    }
+
+    public void updateWorld(){
+        chunks.values().forEach(chunk -> chunk.getEntities().forEach(entity -> entity.update()));
+        chunks.values().forEach(chunk -> chunk.updateEntityQueue());
     }
 
     /*

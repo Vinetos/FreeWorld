@@ -48,6 +48,7 @@ package org.freeworld.client.utils;
 
 import org.freeworld.client.block.Block;
 import org.freeworld.client.maths.Vector5f;
+import org.freeworld.client.world.Chunk;
 import org.freeworld.client.world.World;
 
 public class Location {
@@ -70,6 +71,10 @@ public class Location {
 
     public Block getBlock() {
         return world.getBlock(getBlockX(), getBlockY(), getBlockZ());
+    }
+
+    public Chunk getChunk(){
+        return world.getChunk(getBlockX(), getBlockZ());
     }
 
     public int getBlockX() {
