@@ -64,8 +64,8 @@ public class World {
         /*
          * TODO: Provisoir
          */
-        for(int x  = -(16 * 5); x < (16*5); x+=16){
-            for(int z  = -(16 * 5); z < (16*5); z+=16){
+        for (int x = -(16 * 5); x < 16 * 5; x += 16) {
+            for (int z = -(16 * 5); z < 16 * 5; z += 16) {
                 loadChunk(new Location(this, x, 0.0f, z, 0.0f, 0.0f));
             }
         }
@@ -88,7 +88,7 @@ public class World {
     public void loadChunk(Location location) {
         Chunk chunk = new Chunk(location);
         chunk.populate();
-        System.out.println("Chunk \""+chunk.getId()+"\" generated.");
+        System.out.println("Chunk \"" + chunk.getId() + "\" generated.");
         chunks.put(chunk.getId(), chunk);
     }
 
@@ -102,9 +102,9 @@ public class World {
     /*
      * Get a block with ints
      */
-    public Block getBlock(int x, int y, int z){
-        Chunk chunk = chunks.get(((Math.abs(x)/16) - (x < 0 ? 1 : 0))+"_"+((Math.abs(z)/16) - (z < 0 ? 1 : 0)));
-        return chunk != null ? chunk.getBlock((x >= 0) ? Math.abs(x%16) : 15-Math.abs(x%16), y, z >= 0 ? Math.abs(z%16) : 15-Math.abs(z%16)) : null;
+    public Block getBlock(int x, int y, int z) {
+        Chunk chunk = chunks.get(((Math.abs(x) >> 4) - (x < 0 ? 1 : 0)) + "_" + ((Math.abs(z) >> 4) - (z < 0 ? 1 : 0)));
+        return chunk != null ? chunk.getBlock((x >= 0) ? Math.abs(x % 16) : 15 - Math.abs(x % 16), y, z >= 0 ? Math.abs(z % 16) : 15 - Math.abs(z % 16)) : null;
     }
 
     /*
@@ -118,8 +118,8 @@ public class World {
      * Set a block with ints
      */
     public void setBlock(Material material, int x, int y, int z) {
-        Chunk chunk = chunks.get((x/16)+"_"+(z/16));
-        if(chunk != null) chunk.setBlock(material, Math.abs(x%16), y, Math.abs(z%16));
+        Chunk chunk = chunks.get((x >> 4) + "_" + (z >> 4));
+        if (chunk != null) chunk.setBlock(material, Math.abs(x % 16), y, Math.abs(z % 16));
     }
 
     /*
