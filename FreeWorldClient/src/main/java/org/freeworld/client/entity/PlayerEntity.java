@@ -46,12 +46,15 @@
  */
 package org.freeworld.client.entity;
 
+import org.freeworld.client.block.Block;
 import org.freeworld.client.maths.Vector3f;
 import org.freeworld.client.utils.Location;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 public class PlayerEntity extends Entity {
+
+    private Vector3f rayCast;
 
     public PlayerEntity(Location location){
         super("player", location);
@@ -90,6 +93,29 @@ public class PlayerEntity extends Entity {
         velocity.addX(xDir * Math.cos(rad) - zDir * Math.sin(rad)).addY(yDir).addZ(zDir * Math.cos(rad) + xDir * Math.sin(rad));
 
         location.addX((float) velocity.getX()).addY((float)velocity.getY()).addZ((float)velocity.getZ());
-        velocity.multiplyX(0.5f).multiplyY(0.5f).multiplyZ(0.5f);
+        velocity.multiplyX(0.9f).multiplyY(0.5f).multiplyZ(0.9f);
+
+        updateRayCast();
+    }
+
+    private void updateRayCast(){
+        Vector3f direction = location.getDirection();
+
+        for(int i = 0; i < 8 * 10; i++){
+            Vector3f dir = new Vector3f(direction).multiply(i/10);
+            int x = (int)(location.getBlockX()+dir.getX()),
+                y = (int)(location.getBlockY()+dir.getY()),
+                z = (int)(location.getBlockZ()+dir.getZ());
+            Block block = location.getWorld().getBlock(x, y, z);
+            if(block != null && !block.isTransparent()){
+                rayCast = new Vector3f(x, y, z);
+                return;
+            }
+        }
+        rayCast = null;
+    }
+
+    public Vector3f getRayCast(){
+        return rayCast;
     }
 }

@@ -65,8 +65,8 @@ public class World {
         /*
          * TODO: Provisoir
          */
-        for (int x = -(16 * 5); x < 16 * 5; x += 16) {
-            for (int z = -(16 * 5); z < 16 * 5; z += 16) {
+        for (int x = -(16 * 16); x < 16 * 16; x += 16) {
+            for (int z = -(16 * 16); z < 16 * 16; z += 16) {
                 loadChunk(new Location(this, x, 0.0f, z, 0.0f, 0.0f));
             }
         }

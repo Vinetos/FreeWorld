@@ -47,8 +47,10 @@
 package org.freeworld.client.render;
 
 import org.freeworld.client.block.Block;
+import org.freeworld.client.maths.Vector3f;
 import org.freeworld.client.maths.Vector4f;
 import org.freeworld.client.utils.Location;
+import org.freeworld.client.world.World;
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -63,6 +65,10 @@ public class BlockRenderer {
 
     public BlockRenderer(Vector4f color) {
         this.color = color;
+    }
+
+    public void drawRayCast(World world, Vector3f vector3f){
+        drawQuads(new Location(world, vector3f.getX(), vector3f.getY(), vector3f.getZ(), 0.0f, 0.0f));
     }
 
     /**

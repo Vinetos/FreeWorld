@@ -47,6 +47,7 @@
 package org.freeworld.client.utils;
 
 import org.freeworld.client.block.Block;
+import org.freeworld.client.maths.Vector3f;
 import org.freeworld.client.maths.Vector5f;
 import org.freeworld.client.world.Chunk;
 import org.freeworld.client.world.World;
@@ -245,5 +246,9 @@ public class Location {
 
     public Location clone() {
         return new Location(this);
+    }
+
+    public Vector3f getDirection(){
+        return vector5f.getDirection();
     }
 }

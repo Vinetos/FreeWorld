@@ -54,9 +54,22 @@ public class Vector3f extends Vector2f {
         this(0.0f, 0.0f, 0.0f);
     }
 
+    public Vector3f(Vector3f vector3f){
+        this(vector3f.getX(), vector3f.getY(), vector3f.getZ());
+    }
+
     public Vector3f(float x, float y, float z) {
         super(x, y);
         this.z = z;
+    }
+
+    public float length(){
+        return (float) Math.sqrt(getX()*getX()+getY()*getY()+getZ()*getZ());
+    }
+
+    public Vector3f normalize(){
+        float l = length();
+        return new Vector3f(getX()/l, getY()/l, getZ()/l);
     }
 
     @Override
@@ -136,6 +149,13 @@ public class Vector3f extends Vector2f {
 
     public Vector3f divideZ(float z) {
         this.z /= z;
+        return this;
+    }
+
+    public Vector3f multiply(float mul){
+        multiplyX(mul);
+        multiplyY(mul);
+        multiplyZ(mul);
         return this;
     }
 }

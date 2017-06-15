@@ -55,6 +55,10 @@ public class Vector5f extends Vector4f {
         this.pitch = pitch;
     }
 
+    public Vector3f getDirection(){
+        return new Vector3f(((float) Math.cos(Math.toRadians(pitch - 90)))*((float) Math.cos(Math.toRadians(-yaw))), (float) Math.sin(Math.toRadians(-yaw)), ((float) Math.sin(Math.toRadians(pitch - 90)))*((float) Math.cos(Math.toRadians(-yaw)))).normalize();
+    }
+
     @Override
     public Vector5f setX(float x) {
         return (Vector5f) super.setX(x);

@@ -48,6 +48,7 @@ package org.freeworld.client.render;
 
 import org.freeworld.client.block.Block;
 import org.freeworld.client.block.Material;
+import org.freeworld.client.entity.PlayerEntity;
 import org.freeworld.client.maths.Vector4f;
 import org.freeworld.client.utils.Location;
 import org.freeworld.client.world.Chunk;
@@ -63,6 +64,7 @@ import java.util.LinkedHashMap;
 public class Renderer {
 
     private static final EnumMap<Material, BlockRenderer> rendererBlocks = new EnumMap<>(Material.class);
+    private static final BlockRenderer rayCastRender = new BlockRenderer(new Vector4f(0.0f, 0.0f, 0.0f, 1.0f));
 
     private static final LinkedHashMap<String, Integer> chunks = new LinkedHashMap<>();
 
@@ -109,5 +111,19 @@ public class Renderer {
      */
     public static void renderBlock(Block block, Location location) {
         rendererBlocks.get(block.getType()).drawQuads(location);
+    }
+
+    /*
+     * Render RayCast
+     */
+    public static void renderRayCast(PlayerEntity playerEntity){
+        if(playerEntity.getRayCast() == null) return;
+        GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
+        GL11.glLineWidth(2);
+        GL11.glBegin(GL11.GL_QUADS);
+        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+            rayCastRender.drawRayCast(playerEntity.getLocation().getWorld(), playerEntity.getRayCast());
+        GL11.glEnd();
+        GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
     }
 }

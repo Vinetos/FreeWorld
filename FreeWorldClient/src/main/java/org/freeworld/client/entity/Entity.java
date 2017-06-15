@@ -47,7 +47,6 @@
 package org.freeworld.client.entity;
 
 import org.freeworld.client.maths.Vector3d;
-import org.freeworld.client.maths.Vector3f;
 import org.freeworld.client.utils.Location;
 import org.freeworld.client.world.Chunk;
 

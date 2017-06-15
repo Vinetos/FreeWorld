@@ -180,7 +180,7 @@ public final class FreeWorld{
         glLoadIdentity();
         glMatrixMode(GL_PROJECTION);
 
-        GLU.gluPerspective(70.0f, (float) Display.getWidth() / (float) Display.getHeight(), 0.01f, 250.0f);
+        GLU.gluPerspective(70.0f, (float) Display.getWidth() / (float) Display.getHeight(), 0.01f, 1000.0f);
 
         glEnable(GL_DEPTH_TEST);
         glPopMatrix();
@@ -191,6 +191,8 @@ public final class FreeWorld{
                 glTranslatef(-player.getLocation().getX(), -player.getLocation().getY(), -player.getLocation().getZ());
 
                 Renderer.renderWorld(world);
+                Renderer.renderRayCast(player);
+
             glPopAttrib();
         glPopMatrix();
         glDisable(GL_DEPTH_TEST);
