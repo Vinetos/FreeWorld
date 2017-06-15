@@ -52,7 +52,6 @@ public class KeyboardManager {
 
     private static boolean[] keys = new boolean[255];
 
-
     public static boolean isPressed(int keyId){
         boolean pressed = Keyboard.isKeyDown(keyId);
         if (pressed && !keys[keyId]) return (keys[keyId]) = true;

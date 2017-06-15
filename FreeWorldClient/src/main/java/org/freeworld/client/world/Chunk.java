@@ -64,20 +64,21 @@ public class Chunk {
 
     public Chunk(Location location) {
         this.location = location;
-        positionX = (location.getBlockX()/16);
-        positionZ = (location.getBlockZ()/16);
-        id = positionX+"_"+positionZ;
+        positionX = (location.getBlockX() >> 4);
+        positionZ = (location.getBlockZ() >> 4);
+        id = positionX + "_" + positionZ;
     }
 
     public void populate() {
         final Random random = new Random();
-        for (int x = 0; x < 16; x++) {
-            for (int y = 0; y < 32; y++) {
-                for (int z = 0; z < 16; z++) {
-                    if (y < 3){
-                        if(random.nextInt(2) == 0) blocks[x][y][z] = BlockRegistry.getBlock(Material.STONE);
-                        else blocks[x][y][z] = BlockRegistry.getBlock(Material.GRASS);
-                    }else blocks[x][y][z] = BlockRegistry.getBlock(Material.AIR);
+        for (byte x = 0; x < 16; x++) {
+            for (byte y = 0; y < 32; y++) {
+                for (byte z = 0; z < 16; z++) {
+                        blocks[x][y][z] = y < 3
+                                ? random.nextInt(2) == 0
+                                        ? BlockRegistry.getBlock(Material.STONE)
+                                        : BlockRegistry.getBlock(Material.GRASS)
+                                : BlockRegistry.getBlock(Material.AIR);
                 }
             }
         }
@@ -111,7 +112,7 @@ public class Chunk {
         return blocks;
     }
 
-    public void setBlock(Material material, int x, int y, int z){
+    public void setBlock(Material material, int x, int y, int z) {
         blocks[x][y][z] = BlockRegistry.getBlock(material);
         update = false;
     }
