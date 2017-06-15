@@ -88,8 +88,10 @@ public final class FreeWorld{
     public static void main(String... args){
         System.setProperty("org.lwjgl.librarypath", new File("native/"+(System.getProperties().getProperty("os.name").split(" ")[0]).toLowerCase()).getAbsolutePath());
 
+        FreeWorld.getFreeWorld();
+
         try {
-            Display.setTitle(FreeWorld.getFreeWorld().title);
+            Display.setTitle(FreeWorld.getFreeWorld().getTitle());
             Display.setDisplayMode(new DisplayMode(720, 480));
             Display.setResizable(true);
             Display.create();
@@ -101,6 +103,26 @@ public final class FreeWorld{
         glClearColor(0.2f, 0.7f, 0.7f, 1.0f);
 
         FreeWorld.getFreeWorld().start();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public PlayerEntity getPlayer() {
+        return player;
+    }
+
+    public World getWorld() {
+        return world;
     }
 
     private void start(){
@@ -145,7 +167,7 @@ public final class FreeWorld{
         if(!Mouse.isGrabbed()) return;
 
         player.update();
-        //System.out.println("X = "+cam.getX()+" | Y = "+cam.getY()+" | Z = "+cam.getZ()+" | Yaw = "+cam.getYaw()+" | Pitch = "+(cam.getPitch()%360));
+        //System.out.println("X = "+player.getLocation().getX()+" | Y = "+player.getLocation().getY()+" | Z = "+player.getLocation().getZ()+" | Yaw = "+player.getLocation().getYaw()+" | Pitch = "+(player.getLocation().getPitch()%360));
     }
 
     private void render(){

@@ -56,14 +56,17 @@ import java.util.Random;
 public class Chunk {
 
     private final Block[][][] blocks = new Block[16][32][16];
+    private final int positionX, positionZ;
     private final Location location;
     private final String id;
 
     private boolean update;
 
-    public Chunk(String id, Location location) {
+    public Chunk(Location location) {
         this.location = location;
-        this.id = id;
+        positionX = (location.getBlockX()/16);
+        positionZ = (location.getBlockZ()/16);
+        id = positionX+"_"+positionZ;
     }
 
     public void populate() {
@@ -106,5 +109,10 @@ public class Chunk {
 
     public Block[][][] getBlocks() {
         return blocks;
+    }
+
+    public void setBlock(Material material, int x, int y, int z){
+        blocks[x][y][z] = BlockRegistry.getBlock(material);
+        update = false;
     }
 }

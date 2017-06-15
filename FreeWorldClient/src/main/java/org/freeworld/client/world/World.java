@@ -46,8 +46,11 @@
  */
 package org.freeworld.client.world;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 import org.freeworld.client.block.Block;
+import org.freeworld.client.block.Material;
 import org.freeworld.client.utils.Location;
+import org.lwjgl.Sys;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -63,7 +66,11 @@ public class World {
         /*
          * TODO: Provisoir
          */
-        loadChunk(new Location(this, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f));
+        for(int x  = -(16 * 5); x < (16*5); x+=16){
+            for(int z  = -(16 * 5); z < (16*5); z+=16){
+                loadChunk(new Location(this, x, 0.0f, z, 0.0f, 0.0f));
+            }
+        }
     }
 
     public String getName() {
@@ -81,8 +88,9 @@ public class World {
      * Load a chunk with a player location.
      */
     public void loadChunk(Location location) {
-        Chunk chunk = new Chunk("id chunk", location);
+        Chunk chunk = new Chunk(location);
         chunk.populate();
+        System.out.println("Chunk \""+chunk.getId()+"\" generated.");
         chunks.put(chunk.getId(), chunk);
     }
 
@@ -90,29 +98,30 @@ public class World {
      * Get a block with a location.
      */
     public Block getBlock(Location location) {
-        return null;
+        return this.getBlock(location.getBlockX(), location.getBlockY(), location.getBlockZ());
     }
 
     /*
      * Get a block with ints
      */
-    public Block getBlock(int x, int y, int z) {
-
-        return chunks.get("id chunk").getBlock(x, y, z);
+    public Block getBlock(int x, int y, int z){
+        Chunk chunk = chunks.get(((Math.abs(x)/16) - (x < 0 ? 1 : 0))+"_"+((Math.abs(z)/16) - (z < 0 ? 1 : 0)));
+        return chunk != null ? chunk.getBlock((x >= 0) ? Math.abs(x%16) : 15-Math.abs(x%16), y, z >= 0 ? Math.abs(z%16) : 15-Math.abs(z%16)) : null;
     }
 
     /*
      * Set a block width a location
      */
-    public void setBlock(Location location) {
-
+    public void setBlock(Material material, Location location) {
+        this.setBlock(material, location.getBlockX(), location.getBlockY(), location.getBlockZ());
     }
 
     /*
      * Set a block with ints
      */
-    public void setBlock(int x, int y, int z) {
-
+    public void setBlock(Material material, int x, int y, int z) {
+        Chunk chunk = chunks.get((x/16)+"_"+(z/16));
+        if(chunk != null) chunk.setBlock(material, Math.abs(x%16), y, Math.abs(z%16));
     }
 
     /*
