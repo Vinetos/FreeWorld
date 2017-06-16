@@ -47,14 +47,16 @@
 package org.freeworld.client.entity;
 
 import org.freeworld.client.block.Block;
+import org.freeworld.client.block.Material;
 import org.freeworld.client.maths.Vector3f;
+import org.freeworld.client.utils.KeyboardManager;
 import org.freeworld.client.utils.Location;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 public class PlayerEntity extends Entity {
 
-    private Vector3f rayCast;
+    private Vector3f rayCast, canPlacedBlock;
 
     public PlayerEntity(Location location){
         super("player", location);
@@ -93,7 +95,7 @@ public class PlayerEntity extends Entity {
         velocity.addX(xDir * Math.cos(rad) - zDir * Math.sin(rad)).addY(yDir).addZ(zDir * Math.cos(rad) + xDir * Math.sin(rad));
 
         location.addX((float) velocity.getX()).addY((float)velocity.getY()).addZ((float)velocity.getZ());
-        velocity.multiplyX(0.9f).multiplyY(0.5f).multiplyZ(0.9f);
+        velocity.multiplyX(0.7f).multiplyY(0.7f).multiplyZ(0.7f);
 
         updateRayCast();
     }
@@ -107,15 +109,40 @@ public class PlayerEntity extends Entity {
                 y = (int)(location.getBlockY()+dir.getY()),
                 z = (int)(location.getBlockZ()+dir.getZ());
             Block block = location.getWorld().getBlock(x, y, z);
+            Vector3f pos = new Vector3f(x, y, z);
             if(block != null && !block.isTransparent()){
-                rayCast = new Vector3f(x, y, z);
+                rayCast = pos;
                 return;
             }
+            canPlacedBlock = pos;
         }
         rayCast = null;
+        canPlacedBlock = null;
     }
 
     public Vector3f getRayCast(){
         return rayCast;
+    }
+
+    @Override
+    protected void action() {
+
+        /*
+         * Placed Block
+         */
+        if(KeyboardManager.isPressed(Keyboard.KEY_P)){
+            if (canPlacedBlock != null){
+                location.getWorld().setBlock(Material.STONE, new Location(null, canPlacedBlock.getX(), canPlacedBlock.getY(), canPlacedBlock.getZ()));
+            }
+        }
+
+        /*
+         * Removed Block
+         */
+        if(KeyboardManager.isPressed(Keyboard.KEY_B)){
+            if(rayCast != null){
+                location.getWorld().setBlock(Material.AIR, new Location(null, rayCast.getX(), rayCast.getY(), rayCast.getZ()));
+            }
+        }
     }
 }

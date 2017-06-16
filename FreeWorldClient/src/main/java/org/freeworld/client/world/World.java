@@ -120,7 +120,7 @@ public class World {
      */
     public void setBlock(Material material, int x, int y, int z) {
         Chunk chunk = getChunk(x, z);
-        if (chunk != null) chunk.setBlock(material, Math.abs(x % 16), y, Math.abs(z % 16));
+        if (chunk != null) chunk.setBlock(material, (x >= 0) ? Math.abs(x % 16) : 15 - Math.abs(x % 16), y, z >= 0 ? Math.abs(z % 16) : 15 - Math.abs(z % 16));
     }
 
     public Chunk getChunk(Location location){

@@ -61,6 +61,10 @@ public class Location {
         this(location.world, location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
     }
 
+    public Location(World world, float x, float y, float z){
+        this(world, x, y, z, 0.0f, 0.0f);
+    }
+
     public Location(World world, float x, float y, float z, float yaw, float pitch) {
         this.world = world;
         this.vector5f = new Vector5f(x, y, z, yaw, pitch);

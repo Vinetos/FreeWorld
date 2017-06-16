@@ -119,6 +119,7 @@ public class Chunk {
     }
 
     public void setBlock(Material material, int x, int y, int z) {
+        if(x < 0 || x > 15 || y < 0 || y > 31 || z < 0 || z > 15) return;
         blocks[x][y][z] = BlockRegistry.getBlock(material);
         update = false;
     }

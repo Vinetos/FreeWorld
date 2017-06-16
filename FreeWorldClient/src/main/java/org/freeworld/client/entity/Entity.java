@@ -87,7 +87,10 @@ public abstract class Entity{
             if(last != null && !last.equals(now)) last.removeEntity(this);
             if(now != null && !now.equals(last)) now.addEntity(this);
         }
+
+        action();
     }
 
     protected void move(){}
+    protected void action(){}
 }

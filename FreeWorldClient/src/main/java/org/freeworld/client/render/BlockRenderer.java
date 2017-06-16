@@ -79,12 +79,17 @@ public class BlockRenderer {
         if (color == null) return;
 
         GL11.glColor4f(color.getX() * 0.9f, color.getY() * 0.9f, color.getZ() * 0.9f, color.getYaw());
+
+        int x = location.getBlockX() < 0 ? location.getBlockX() - 0 : location.getBlockX();
+        int y = location.getBlockY();
+        int z = location.getBlockZ() < 0 ? location.getBlockZ() - 0 : location.getBlockZ();
+
         /*
          * Block Top
          */
         Block top = location.add(0, 1, 0).getBlock();
         if (top == null || top.isTransparent()) {
-            this.setTopData(location.getBlockX(), location.getBlockY(), location.getBlockZ(), 1.0f, 1.0f, 1.0f);
+            this.setTopData(x, y, z, 1.0f, 1.0f, 1.0f);
         }
 
         /*
@@ -92,7 +97,7 @@ public class BlockRenderer {
          */
         Block bottom = location.add(0, -1, 0).getBlock();
         if (bottom == null || bottom.isTransparent()) {
-            this.setBottomData(location.getBlockX(), location.getBlockY(), location.getBlockZ(), 1.0f, 1.0f, 1.0f);
+            this.setBottomData(x, y, z, 1.0f, 1.0f, 1.0f);
         }
 
         /*
@@ -101,24 +106,24 @@ public class BlockRenderer {
         GL11.glColor4f(color.getX() * 0.8f, color.getY() * 0.8f, color.getZ() * 0.8f, color.getYaw());
         Block side_1 = location.add(0, 0, -1).getBlock();
         if (side_1 == null || side_1.isTransparent()) {
-            setSideData(location.getBlockX() + 1.0f, location.getBlockY(), location.getBlockZ(), location.getBlockX(), location.getBlockY() + 1.0f, location.getBlockZ());
+            setSideData(x + 1.0f, y, z, x, y + 1.0f, z);
         }
 
         Block side_2 = location.add(0, 0, 1).getBlock();
         if (side_2 == null || side_2.isTransparent()) {
-            setSideData(location.getBlockX(), location.getBlockY(), location.getBlockZ() + 1.0f, location.getBlockX() + 1.0f, location.getBlockY() + 1.0f, location.getBlockZ() + 1.0f);
+            setSideData(x, y, z + 1.0f, x + 1.0f, y + 1.0f, z + 1.0f);
         }
 
         GL11.glColor4f(color.getX() * 0.7f, color.getY() * 0.7f, color.getZ() * 0.7f, color.getYaw());
 
         Block side_3 = location.add(1, 0, 0).getBlock();
         if (side_3 == null || side_3.isTransparent()) {
-            setSideData(location.getBlockX() + 1.0f, location.getBlockY(), location.getBlockZ() + 1.0f, location.getBlockX() + 1.0f, location.getBlockY() + 1.0f, location.getBlockZ());
+            setSideData(x + 1.0f, y, z + 1.0f, x + 1.0f, y + 1.0f, z);
         }
 
         Block side_4 = location.add(-1, 0, 0).getBlock();
         if (side_4 == null || side_4.isTransparent()) {
-            setSideData(location.getBlockX(), location.getBlockY(), location.getBlockZ(), location.getBlockX(), location.getBlockY() + 1.0f, location.getBlockZ() + 1.0f);
+            setSideData(x, y, z, x, y + 1.0f, z + 1.0f);
         }
     }
 
