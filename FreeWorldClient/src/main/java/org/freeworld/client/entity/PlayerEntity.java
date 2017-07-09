@@ -105,9 +105,9 @@ public class PlayerEntity extends Entity {
 
         for(int i = 0; i < 8 * 10; i++){
             Vector3f dir = new Vector3f(direction).multiply(i/10.0f);
-            int x = (int)(location.getBlockX()+dir.getX()),
-                y = (int)(location.getBlockY()+dir.getY()),
-                z = (int)(location.getBlockZ()+dir.getZ());
+            int x = (int)(location.getX()+dir.getX()),
+                y = (int)(location.getY()+dir.getY()),
+                z = (int)(location.getZ()+dir.getZ());
             Block block = location.getWorld().getBlock(x, y, z);
             Vector3f pos = new Vector3f(x, y, z);
             if(block != null && !block.isTransparent()){

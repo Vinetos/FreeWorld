@@ -121,7 +121,7 @@ public class Renderer {
         GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
         GL11.glLineWidth(2);
         GL11.glBegin(GL11.GL_QUADS);
-        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+        GL11.glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
             rayCastRender.drawRayCast(playerEntity.getLocation().getWorld(), playerEntity.getRayCast());
         GL11.glEnd();
         GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);

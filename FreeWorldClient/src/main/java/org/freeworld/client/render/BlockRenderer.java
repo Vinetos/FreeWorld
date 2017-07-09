@@ -78,11 +78,11 @@ public class BlockRenderer {
     public void drawQuads(Location location) {
         if (color == null) return;
 
-        GL11.glColor4f(color.getX() * 0.9f, color.getY() * 0.9f, color.getZ() * 0.9f, color.getYaw());
+        GL11.glColor4f(color.getX(), color.getY(), color.getZ(), color.getYaw());
 
-        int x = location.getBlockX() < 0 ? location.getBlockX() - 0 : location.getBlockX();
+        int x = location.getBlockX();
         int y = location.getBlockY();
-        int z = location.getBlockZ() < 0 ? location.getBlockZ() - 0 : location.getBlockZ();
+        int z = location.getBlockZ();
 
         /*
          * Block Top
