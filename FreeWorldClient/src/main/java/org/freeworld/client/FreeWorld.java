@@ -196,5 +196,19 @@ public final class FreeWorld{
             glPopAttrib();
         glPopMatrix();
         glDisable(GL_DEPTH_TEST);
+
+        renderGUI();
+    }
+
+    private void renderGUI(){
+        glLoadIdentity();
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+        glMatrixMode(GL_PROJECTION);
+        GLU.gluOrtho2D(0, Display.getWidth(), Display.getHeight(), 0);
+
+        glColor3d(0.0d, 0.0d, 0.0d);
+        glRectf(Display.getWidth()/2-4, Display.getHeight()/2-1, Display.getWidth()/2+4, Display.getHeight()/2+1);
+        glRectf(Display.getWidth()/2-1, Display.getHeight()/2-4, Display.getWidth()/2+1, Display.getHeight()/2+4);
     }
 }

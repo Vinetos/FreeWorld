@@ -120,11 +120,26 @@ public class World {
     /*
      * Set a block with ints
      */
-    public void setBlock(Material material, int x, int y, int z) {
+    public void setBlock(Material material, final int x, final int y, final int z) {
         Chunk chunk = getChunk(x, z);
-        x = x % 16;
-        z = z % 16;
-        if (chunk != null) chunk.setBlock(material,x < 0 ? x + 16 : x, y, z < 0 ? z + 16 : z);
+        int mx = x % 16;
+        int mz = z % 16;
+        if (chunk != null){
+            int rx = mx < 0 ? mx + 16 : mx;
+            int rz = mz < 0 ? mz + 16 : mz;
+
+            chunk.setBlock(material,rx, y, rz);
+
+            Chunk[] adj = new Chunk[2];
+
+            if(rx == 0) adj[0] = getChunk(x-1, z);
+            if(rz == 0) adj[1] = getChunk(x, z-1);
+            if(rx == 15) adj[0] = getChunk(x+1, z);
+            if(rz == 15) adj[1] = getChunk(x, z+1);
+
+            for(Chunk chunk1 : adj) if(chunk1 != null) chunk1.setUpdate(false);
+
+        }
     }
 
     public Chunk getChunk(Location location){
