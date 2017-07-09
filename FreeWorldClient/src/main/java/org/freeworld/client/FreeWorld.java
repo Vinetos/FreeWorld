@@ -48,7 +48,6 @@ package org.freeworld.client;
 
 import org.freeworld.client.block.Block;
 import org.freeworld.client.entity.PlayerEntity;
-import org.freeworld.client.maths.Vector5f;
 import org.freeworld.client.render.Renderer;
 import org.freeworld.client.utils.Location;
 import org.freeworld.client.world.World;
@@ -72,6 +71,8 @@ public final class FreeWorld{
     private final World world;
     private final PlayerEntity player;
     private boolean running;
+
+    private TextArea textArea;
 
     private FreeWorld(){
         Block.registerBlocks();
@@ -200,7 +201,7 @@ public final class FreeWorld{
         renderGUI();
     }
 
-    private void renderGUI(){
+    private void renderGUI() {
         glLoadIdentity();
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
@@ -208,7 +209,7 @@ public final class FreeWorld{
         GLU.gluOrtho2D(0, Display.getWidth(), Display.getHeight(), 0);
 
         glColor3d(0.0d, 0.0d, 0.0d);
-        glRectf(Display.getWidth()/2-4, Display.getHeight()/2-1, Display.getWidth()/2+4, Display.getHeight()/2+1);
-        glRectf(Display.getWidth()/2-1, Display.getHeight()/2-4, Display.getWidth()/2+1, Display.getHeight()/2+4);
+        glRectf(Display.getWidth() / 2 - 4, Display.getHeight() / 2 - 1, Display.getWidth() / 2 + 4, Display.getHeight() / 2 + 1);
+        glRectf(Display.getWidth() / 2 - 1, Display.getHeight() / 2 - 4, Display.getWidth() / 2 + 1, Display.getHeight() / 2 + 4);
     }
 }
